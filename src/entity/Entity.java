@@ -74,7 +74,7 @@ public class Entity {
         this.gp = gp;
     }
 
-    public void setAction() {}//tại sao hai cái này để trống
+    public void setAction() {}
     public void damageReaction() {}
 
     public void speak() {
@@ -199,7 +199,7 @@ public class Entity {
             }
 
             // Monster HP bar
-            if (type == 2 && hpBarOn) {//không hiểu đoạn code này, tại sao lại lấy máu của quái cơ chứ
+            if (type == 2 && hpBarOn) {
                 double oneScale = (double) gp.tileSize / maxLife;
                 double hpBarValue = oneScale * life;
 
@@ -211,18 +211,18 @@ public class Entity {
 
                 hpBarCounter++;
 
-                if (hpBarCounter > 600) {
+                if (hpBarCounter > 300) {
                     hpBarCounter = 0;
                     hpBarOn = false;
                 }
             }
 
-            if (invincible) {//khoong hieeu that nah
+            if (invincible) {
                 hpBarOn = true;
                 hpBarCounter = 0;
                 changeAlpha(g2, 0.4F);
             }
-            if (!alive) {
+            if (dying) {
                 dyingAnimation(g2);
             }
 
@@ -232,7 +232,7 @@ public class Entity {
         }
     }
 
-    public void dyingAnimation(Graphics2D g2) {//có thể lỗi ở đây khiến cho nhân vật không chết được
+    public void dyingAnimation(Graphics2D g2) {
         dyingCounter++;
 
         int i = 5;

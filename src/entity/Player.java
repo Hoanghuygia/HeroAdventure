@@ -178,13 +178,13 @@ public class Player extends Entity {
                 }
                 spriteCounter = 0;
             }
-//        } else {
-//            standCounter++;
-//
-//            if (standCounter == 20) {
-//                spriteNum = 1;
-//                standCounter = 0;
-//            }
+        } else {
+            standCounter++;
+
+            if (standCounter == 20) {
+                spriteNum = 1;
+                standCounter = 0;
+            }
         }
 
         // This need to be outside of key if statement!
@@ -301,12 +301,14 @@ public class Player extends Entity {
 
                 if (gp.monster[i].life <= 0) {
                     gp.monster[i].dying = true;
+                    gp.monster[i].alive = false;
 //                    gp.monster[i] = null;
 //                    dyingAnimation(g2);
                     gp.ui.addMessage("Killed the " + gp.monster[i].name + "!");
                     gp.ui.addMessage("Exp +" + gp.monster[i].exp);
                     exp += gp.monster[i].exp;
-                    gp.monster[i] = null;
+
+//                    gp.monster[i] = null;
                     checkLevelUp();
                 }
             }

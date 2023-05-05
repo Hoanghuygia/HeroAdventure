@@ -121,10 +121,10 @@ public class GamePanel extends JPanel implements Runnable {
             // MONSTER
             for (int i = 0; i < monster.length; i++) {
                 if (monster[i] != null) {
-                    if (monster[i].alive){// && !monster[i].dying) {//không hiểu là biến dying để làm gì nữa
+                    if (monster[i].alive && !monster[i].dying) {//biến dying = đang chết
                         monster[i].update();
                     }
-                    if (!monster[i].alive) {
+                    if (!monster[i].alive && !monster[i].dying) {//I think the bug is here
                         monster[i] = null;
                     }
                 }
@@ -164,16 +164,17 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             for (int i = 0; i < obj.length; i++) {
-                if (obj[i] != null) {
+                if (obj[i] != null) {//mình cho nó thực hiện hiệu ứng ở đây và chết
                     entityList.add(obj[i]);
                 }
             }
-
             for (int i = 0; i < monster.length; i++) {
                 if (monster[i] != null) {
                     entityList.add(monster[i]);
                 }
             }
+
+
 
             // SORT
             Collections.sort(entityList, new Comparator<Entity>() {
