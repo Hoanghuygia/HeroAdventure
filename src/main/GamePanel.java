@@ -126,7 +126,6 @@ public class GamePanel extends JPanel implements Runnable {
                     }
                     if (!monster[i].alive && !monster[i].dying) {//I think the bug is here
                         monster[i] = null;
-                        System.out.println("hfsdadfldfak");
                     }
                 }
             }
