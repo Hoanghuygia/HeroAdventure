@@ -7,6 +7,7 @@ import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,14 +19,22 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3;
 
     public final int tileSize = originalTileSize * scale; // 48x48 tile
-    public final int maxScreenCol = 16;
+    public final int maxScreenCol = 20;
     public final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
+    //FULL SCREEN
+    int screenWidth2 = screenWidth;//tại sao phải khởi tạo nó bằng hai cái đó, đằng nào mà nó chả lấy từ người dùng
+    int screenHeight2 = screenHeight;
+    BufferedImage tempScreen;
+    Graphics2D g2;
+
+
     // WORLD SETTINGS
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
+    public boolean fullScreenOn = false;
 
     // FPS
     int FPS = 60;
@@ -54,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public final int characterState = 4;
+    public final int optionsState = 5;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -69,6 +79,21 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setMonster();
 //        playMusic(0);
         gameState = titleState;
+        tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);//create a buffer image as large as screen
+        g2 = (Graphics2D)tempScreen.getGraphics();
+//        setFullScreen();
+    }
+
+    public void setFullScreen(){
+        //GET lOCAL SCREEN DEVICE
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();//THIS TWO LINE IS TO GET OUR LOCAL SCREEN DIVECE SUCH AS RESOLUTION OF LAPTOP SCREEN
+        gd.setFullScreenWindow(Main.window);
+
+        //GET FULL SCREEN WIDTH AND HEIGHT
+        screenWidth2 = Main.window.getWidth();
+        screenHeight2 = Main.window.getHeight();
+
     }
 
     public void startGameThread() {
@@ -93,7 +118,9 @@ public class GamePanel extends JPanel implements Runnable {
 
             if (delta >= 1) {
                 update();
-                repaint();
+//                repaint();
+                drawToTempScreen();//draw to the buffereImage
+                drawToScreen();//draw to the J Panel
                 delta--;
                 drawCount++;
             }
@@ -134,12 +161,8 @@ public class GamePanel extends JPanel implements Runnable {
             // nothing
         }
     }
-
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-
-        // DEBUG
+    public void drawToTempScreen(){
+        //DEBUG
         long drawStart = 0L;
         if (keyH.showDebugText) {
             drawStart = System.nanoTime();
@@ -213,8 +236,12 @@ public class GamePanel extends JPanel implements Runnable {
             g2.drawString("Row: " + (player.worldY + player.solidArea.y) / tileSize, x, y); y += lineHeight;
             g2.drawString("Draw Time: " + passed, x, y);
         }
+    }
 
-        g2.dispose();
+    public void drawToScreen(){
+        Graphics g = getGraphics();
+        g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
+        g.dispose();
     }
 
     public void playMusic(int i) {

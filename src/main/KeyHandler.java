@@ -43,6 +43,9 @@ public class KeyHandler implements KeyListener {
         else if (gp.gameState == gp.characterState) {
             characterState(code);
         }
+        else if (gp.gameState == gp.optionsState) {
+            optionsState(code);
+        }
     }
 
     public void titleState(int code) {
@@ -72,6 +75,7 @@ public class KeyHandler implements KeyListener {
         }
     }
 
+
     public void playState(int code) {
         if (code == KeyEvent.VK_W) {
             upPressed = true;
@@ -93,6 +97,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_ENTER) {
             enterPress = true;
+        }
+        if(code == KeyEvent.VK_ESCAPE){
+            gp.gameState = gp.optionsState;
         }
 
         // DEBUG
@@ -152,6 +159,41 @@ public class KeyHandler implements KeyListener {
             gp.player.selectItem();
         }
     }
+    public void optionsState(int code){
+
+        if(code == KeyEvent.VK_ESCAPE){
+            gp.gameState = gp.playState;
+        }
+        if(code == KeyEvent.VK_ENTER){
+            enterPress = true;
+        }
+
+        int maxCommand = 0;
+        switch (gp.ui.subState){
+            case 0:
+                maxCommand = 5;
+                break;
+
+            case 1:
+                maxCommand = 1;
+                break;
+        }
+        if (code == KeyEvent.VK_S) {
+            gp.ui.commandNum++;
+            if (gp.ui.commandNum > maxCommand) {
+                gp.playSE(9);
+                gp.ui.commandNum = 0;
+            }
+        }
+        if (code == KeyEvent.VK_W) {
+            gp.ui.commandNum--;
+            if (gp.ui.commandNum < 0) {
+                gp.playSE(9);
+                gp.ui.commandNum = maxCommand;
+            }
+        }
+    }
+
 
     @Override
     public void keyReleased(KeyEvent e) {
