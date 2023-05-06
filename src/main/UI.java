@@ -505,10 +505,14 @@ public class UI {
         //MUSIC VOLUME
         textY += gp.tileSize;
         g2.drawRect(textX, textY, 24*5, 24);
+        int volumeWidth = 24 * gp.music.volumeScale;
+        g2.fillRect(textX, textY, volumeWidth, 24);
 
         //SOUND EFFECT
         textY += gp.tileSize;
         g2.drawRect(textX, textY, 24*5, 24);
+        int seWidth = 24 * gp.se.volumeScale;
+        g2.fillRect(textX, textY, seWidth, 24);
 
     }
     public void options_fullScreenNotification(int frameX, int frameY) {

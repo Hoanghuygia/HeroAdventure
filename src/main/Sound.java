@@ -3,11 +3,15 @@ package main;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import java.net.URL;
 
 public class Sound {
 
     Clip clip;
+    int volumeScale = 5;
+    float volume;
+    FloatControl fc;
     URL soundURL[] = new URL[30];
 
     public Sound() {
@@ -28,6 +32,8 @@ public class Sound {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(ais);
+            fc = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+            checkVolume();
         } catch (Exception e) {
             //
         }
@@ -43,5 +49,28 @@ public class Sound {
 
     public void stop() {
         clip.stop();
+    }
+    public void checkVolume(){
+        switch (volumeScale){
+            case 0:
+                volume = -80f;//the volume between -80 and -30 is not different to much, you barely can hear it
+                break;
+            case 1:
+                volume = -20f;
+                break;
+            case 2:
+                volume = -12f;
+                break;
+            case 3:
+                volume = -5f;
+                break;
+            case 4:
+                volume = 1f;
+                break;
+            case 5:
+                volume = 6f;
+                break;
+        }
+        fc.setValue(volume);
     }
 }
