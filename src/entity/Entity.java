@@ -100,7 +100,7 @@ public class Entity {
         }
     }
 
-    public void use(Entity entity) {}
+    public void use(Entity entity) {}//gfhjklfghjklkjhgfjkjk
 
     public void update() {
         setAction();
