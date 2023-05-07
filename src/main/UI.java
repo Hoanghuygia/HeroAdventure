@@ -531,6 +531,7 @@ public class UI {
         int seWidth = 24 * gp.se.volumeScale;
         g2.fillRect(textX, textY, seWidth, 24);
 
+        gp.config.savaConfig();
     }
     public void options_fullScreenNotification(int frameX, int frameY) {
         int textX = frameX + gp.tileSize;

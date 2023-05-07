@@ -39,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
     // FPS
     int FPS = 60;
 
+    //SYSTEM
     TileManager tileM = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
     Sound music = new Sound();
@@ -47,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler(this);
+    Config config = new Config(this);
     Thread gameThread;
 
     // ENTITY AND OBJECT
@@ -81,7 +83,9 @@ public class GamePanel extends JPanel implements Runnable {
         gameState = titleState;
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);//create a buffer image as large as screen
         g2 = (Graphics2D)tempScreen.getGraphics();
-//        setFullScreen();
+        if(fullScreenOn){
+            setFullScreen();
+        }
     }
 
     public void setFullScreen(){
