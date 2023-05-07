@@ -69,6 +69,7 @@ public class Player extends Entity {
     }
 
     public void setItems() {
+        inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
         inventory.add(new OBJ_Key(gp));
@@ -194,6 +195,11 @@ public class Player extends Entity {
                 invincible = false;
                 invincibleCounter = 0;
             }
+        }
+        if(life <= 0){
+            gp.gameState = gp.gameOverState;
+            invincible = false;
+            gp.playSE(10);
         }
     }
 
