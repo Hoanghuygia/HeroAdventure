@@ -163,6 +163,7 @@ public class KeyHandler implements KeyListener {
 
         if(code == KeyEvent.VK_ESCAPE){
             gp.gameState = gp.playState;
+            gp.ui.subState = 0;
         }
         if(code == KeyEvent.VK_ENTER){
             enterPress = true;
@@ -175,6 +176,9 @@ public class KeyHandler implements KeyListener {
                 break;
 
             case 1:
+                maxCommand = 1;
+                break;
+            case 3:
                 maxCommand = 1;
                 break;
         }
