@@ -31,6 +31,7 @@ public class Entity {
     public boolean alive = true;
     public boolean dying = false;
     boolean hpBarOn = false;
+    public boolean onPath = false;
 
     // COUNTER
     public int spriteCounter = 0;
@@ -73,6 +74,28 @@ public class Entity {
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
+    public void checkCollision(){
+        collisionOn = false;
+        gp.cChecker.checkTile(this);
+        gp.cChecker.checkObject(this, false);
+        gp.cChecker.checkEntity(this, gp.npc);
+        gp.cChecker.checkEntity(this, gp.monster);
+        boolean contactPlayer = gp.cChecker.checkPlayer(this);
+
+        if (this.type == type_monster && contactPlayer) {
+            if (!gp.player.invincible) {
+                // we can give damage
+                gp.playSE(6);
+
+                int damage = attack - gp.player.defense;
+                if (damage < 0) {
+                    damage = 0;
+                }
+                gp.player.life -= damage;
+                gp.player.invincible = true;
+            }
+        }
+    }
 
     public void setAction() {}
     public void damageReaction() {}
@@ -104,27 +127,7 @@ public class Entity {
 
     public void update() {
         setAction();
-
-        collisionOn = false;
-        gp.cChecker.checkTile(this);
-        gp.cChecker.checkObject(this, false);
-        gp.cChecker.checkEntity(this, gp.npc);
-        gp.cChecker.checkEntity(this, gp.monster);
-        boolean contactPlayer = gp.cChecker.checkPlayer(this);
-
-        if (this.type == type_monster && contactPlayer) {
-            if (!gp.player.invincible) {
-                // we can give damage
-                gp.playSE(6);
-
-                int damage = attack - gp.player.defense;
-                if (damage < 0) {
-                    damage = 0;
-                }
-                gp.player.life -= damage;
-                gp.player.invincible = true;
-            }
-        }
+        checkCollision();
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if (!collisionOn) {
@@ -255,4 +258,66 @@ public class Entity {
     public void changeAlpha(Graphics2D g2, float alphaValue) {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
     }
+    public void searchPath(int goalCol, int goalRow){
+        int startCol = (worldX + solidArea.x) / gp.tileSize;
+        int startRow = (worldY + solidArea.y) / gp.tileSize;
+
+        gp.pFinder.setNodes(startCol, startRow, goalCol, goalRow);
+
+        if(gp.pFinder.search()){
+            //next worldX and worldY
+            int nextX = gp.pFinder.pathList.get(0).col * gp.tileSize;
+            int nextY = gp.pFinder.pathList.get(0).row * gp.tileSize;
+
+            //Entity's solid area position
+            int enLeftX = worldX + solidArea.x;
+            int enRightX = worldX + solidArea.x + solidArea.width;
+            int enTopY = worldY + solidArea.y;
+            int enBottomY = worldY + solidArea.y + solidArea.height;
+
+            if(enTopY > nextY && enLeftX >= nextX &&  enRightX < nextX + gp.tileSize){
+                direction = "up";
+            }
+            else if(enTopY < nextY && enLeftX >= nextX &&  enRightX < nextX + gp.tileSize){
+                direction = "down";
+            }
+            else if(enTopY >= nextY && enBottomY < nextY + gp.tileSize){
+                //left or right
+                if(enLeftX > nextX) direction = "left";
+                if(enLeftX < nextX) direction = "right";
+            }
+            else if(enTopY > nextY && enLeftX > nextX){
+                //up or left
+                direction = "up";
+                checkCollision();
+                if(collisionOn) direction = "left";
+            }
+            else if(enTopY > nextY && enLeftX < nextX){
+                //up or right
+                direction = "up";
+                checkCollision();
+                if(collisionOn) direction = "right";
+            }
+            else if(enTopY < nextY && enLeftX > nextX){
+                //down or left
+                direction = "down";
+                checkCollision();
+                if(collisionOn) direction = "left";
+            }
+            else if(enTopY < nextY && enLeftX < nextX){
+                //down or right
+                direction = "down";
+                checkCollision();
+                if(collisionOn) direction = "right";
+            }
+            int nextCol = gp.pFinder.pathList.get(0).col;
+            int nextRow = gp.pFinder.pathList.get(0).row;
+
+            //if reach the goal stop
+            if(nextCol == goalCol && nextRow == goalRow){
+                onPath = false;
+            }
+        }
+    }
+
 }
