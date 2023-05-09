@@ -2,6 +2,7 @@ package main;
 
 import entity.NPC_OldMan;
 import monster.MON_GreenSlime;
+import monster.WoflMonster;
 import object.OBJ_Axe;
 import object.OBJ_Key;
 import object.OBJ_Potion_Red;
@@ -70,5 +71,21 @@ public class AssetSetter {
         gp.monster[i] = new MON_GreenSlime(gp);
         gp.monster[i].worldX = gp.tileSize * 38;
         gp.monster[i].worldY = gp.tileSize * 42;
+    }
+
+    public void setMonster1(){
+        int i=0;
+        gp.monster[i] = new WoflMonster(gp);
+        gp.monster[i].worldX = gp.tileSize * 18;
+        gp.monster[i].worldY = gp.tileSize * 38;
+        i++;
+        gp.monster[i] = new WoflMonster(gp);
+        gp.monster[i].worldX = gp.tileSize * 20;
+        gp.monster[i].worldY = gp.tileSize * 42;
+        i++;
+        gp.monster[i] = new WoflMonster(gp);
+        gp.monster[i].worldX = gp.tileSize * 30;
+        gp.monster[i].worldY = gp.tileSize * 37;
+
     }
 }
