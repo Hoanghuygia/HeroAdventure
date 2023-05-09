@@ -35,6 +35,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
     public boolean fullScreenOn = false;
+    public final int maxMap = 10;
+    public int currentMap = 1;
 
     // FPS
     int FPS = 60;
@@ -53,9 +55,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
-    public Entity obj[] = new Entity[10];
-    public Entity npc[] = new Entity[10];
-    public Entity monster[] = new Entity[20];
+    public Entity obj[][] = new Entity[maxMap][20];
+    public Entity npc[][] = new Entity[maxMap][20];
+    public Entity monster[][] = new Entity[maxMap][20];
     ArrayList<Entity> entityList = new ArrayList<>();
 
     // GAME STATE
@@ -151,20 +153,20 @@ public class GamePanel extends JPanel implements Runnable {
             player.update();
 
             // NPC
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null) {
-                    npc[i].update();
+            for (int i = 0; i < npc[1].length; i++) {
+                if (npc[currentMap][i] != null) {
+                    npc[currentMap][i].update();
                 }
             }
 
             // MONSTER
-            for (int i = 0; i < monster.length; i++) {
-                if (monster[i] != null) {
-                    if (monster[i].alive && !monster[i].dying) {//biến dying = đang chết
-                        monster[i].update();
+            for (int i = 0; i < monster[1].length; i++) {
+                if (monster[currentMap][i] != null) {
+                    if (monster[currentMap][i].alive && !monster[currentMap][i].dying) {//biến dying = đang chết
+                        monster[currentMap][i].update();
                     }
-                    if (!monster[i].alive && !monster[i].dying) {//I think the bug is here
-                        monster[i] = null;
+                    if (!monster[currentMap][i].alive && !monster[currentMap][i].dying) {//I think the bug is here
+                        monster[currentMap][i] = null;
                     }
                 }
             }
@@ -192,20 +194,20 @@ public class GamePanel extends JPanel implements Runnable {
             // ADD ENTITIES TO THE LIST
             entityList.add(player);
 
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null) {
-                    entityList.add(npc[i]);
+            for (int i = 0; i < npc[1].length; i++) {
+                if (npc[currentMap][i] != null) {
+                    entityList.add(npc[currentMap][i]);
                 }
             }
 
-            for (int i = 0; i < obj.length; i++) {
-                if (obj[i] != null) {//mình cho nó thực hiện hiệu ứng ở đây và chết
-                    entityList.add(obj[i]);
+            for (int i = 0; i < obj[1].length; i++) {
+                if (obj[currentMap][i] != null) {//mình cho nó thực hiện hiệu ứng ở đây và chết
+                    entityList.add(obj[currentMap][i]);
                 }
             }
-            for (int i = 0; i < monster.length; i++) {
-                if (monster[i] != null) {
-                    entityList.add(monster[i]);
+            for (int i = 0; i < monster[1].length; i++) {
+                if (monster[currentMap][i] != null) {
+                    entityList.add(monster[currentMap][i]);
                 }
             }
 
