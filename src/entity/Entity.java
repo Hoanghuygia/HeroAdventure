@@ -310,13 +310,13 @@ public class Entity {
                 checkCollision();
                 if(collisionOn) direction = "right";
             }
-            int nextCol = gp.pFinder.pathList.get(0).col;
-            int nextRow = gp.pFinder.pathList.get(0).row;
-
-            //if reach the goal stop
-            if(nextCol == goalCol && nextRow == goalRow){
-                onPath = false;
-            }
+//            int nextCol = gp.pFinder.pathList.get(0).col;
+//            int nextRow = gp.pFinder.pathList.get(0).row;
+//
+//            //if reach the goal stop
+//            if(nextCol == goalCol && nextRow == goalRow){
+//                onPath = false;
+//            }
         }
     }
 

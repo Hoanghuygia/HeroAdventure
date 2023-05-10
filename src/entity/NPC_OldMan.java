@@ -15,7 +15,7 @@ public class NPC_OldMan extends Entity {
         super(gp);
 
         direction = "down";
-        speed = 1;
+        speed = 3;
 
         solidArea = new Rectangle();
         solidArea.x = 8;
@@ -50,8 +50,8 @@ public class NPC_OldMan extends Entity {
     public void setAction() {
 
         if(onPath){
-            int goalCol = 10;
-            int goalRow = 10;
+            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
+            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
             searchPath(goalCol, goalRow);
         }
         else{
