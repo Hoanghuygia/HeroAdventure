@@ -12,8 +12,10 @@ public class Entity {
 
     GamePanel gp;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
+    public  BufferedImage death1;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
     public BufferedImage image, image2, image3;
+    public BufferedImage image4;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
     public int solidAreaDefaultX, solidAreaDefaultY;
@@ -231,7 +233,6 @@ public class Entity {
             changeAlpha(g2, 1F);
         }
     }
-
     public void dyingAnimation(Graphics2D g2) {//có thể lỗi ở đây khiến cho nhân vật không chết được
         dyingCounter++;
 
@@ -249,7 +250,7 @@ public class Entity {
             dying = false;
             alive = false;
         }
-//        dyingCounter = 0;
+            dyingCounter = 0;
     }
 
     public void changeAlpha(Graphics2D g2, float alphaValue) {
