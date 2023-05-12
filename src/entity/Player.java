@@ -250,18 +250,34 @@ public class Player extends Entity {
 
     public void pickUpObject(int i) {//Still cant open the doors or chests
         if (i != 999) {
-            String text;
+            //PICK ONLY ITEMS
+            if(gp.obj[gp.currentMap][i].type == type_pinkUpOnly){
+                gp.obj[gp.currentMap][i].use(this);
+                gp.obj[gp.currentMap][i] = null;
+            }
+            //OBSTACLE
+            else if(gp.obj[gp.currentMap][i].type == type_obstacle){
+                if(keyH.enterPress){
+                    attackCanceled = true;
+                    gp.obj[gp.currentMap][i].interact();
+                }
+            }
+            //INVERTORY ITEMS
+            else{
+                String text;
 
-            if (inventory.size() != maxInventorySize) {
-                inventory.add(gp.obj[gp.currentMap][i]);
-                gp.playSE(1);
-                text = "Got a " + gp.obj[gp.currentMap][i].name + "!";
-            } else {
-                text = "You cannot carry any more!";
+                if (inventory.size() != maxInventorySize) {
+                    inventory.add(gp.obj[gp.currentMap][i]);
+                    gp.playSE(1);
+                    text = "Got a " + gp.obj[gp.currentMap][i].name + "!";
+                } else {
+                    text = "You cannot carry any more!";
+                }
+
+                gp.ui.addMessage(text);
+                gp.obj[gp.currentMap][i] = null;
             }
 
-            gp.ui.addMessage(text);
-            gp.obj[gp.currentMap][i] = null;
         }
     }
 
@@ -354,8 +370,9 @@ public class Player extends Entity {
                 defense = getDefense();
             }
             if (selectedItem.type == type_consumable) {
-                selectedItem.use(this);
-                inventory.remove(itemIndex);
+                if(selectedItem.use(this)){
+                    inventory.remove(itemIndex);
+                }
             }
         }
     }
