@@ -45,25 +45,24 @@ public class MON_GreenSlime extends Entity {
         right2 = setup("/monster/002", gp.tileSize, gp.tileSize);
     }
     public void update(){
-        countTime++;
         super.update();
         int xDistance = Math.abs(worldX - gp.player.worldX);//i think the problem is here, we need to consider the position of the monster instead
         int yDistance = Math.abs(worldY - gp.player.worldY);
         int titleDistance = (xDistance + yDistance)/gp.tileSize;
-        for(Entity monster : gp.monster[1]){
-            if(monster != null){
 
-                System.out.println("countTime is: " + countTime);
-                if(!monster.onPath){
-                    int i = new Random().nextInt(100) + 1;
-                    if (i > 50) monster.onPath = true;
-                }
-
-            }
-            if(onPath && titleDistance > 5 || countTime > 300){
-                onPath = false;
-                countTime = 0;
-            }
+        if(!onPath && titleDistance < 5){
+            int i = new Random().nextInt(100) + 1;
+            if(i > 50) onPath = true;
+        }
+        if(onPath) countTime++;
+        System.out.println(countTime);
+        if(onPath && titleDistance > 20){
+            onPath = false;
+            countTime = 0;
+        }
+        if(onPath && countTime > 120){
+            onPath = false;
+            countTime = 0;
         }
     }
 
