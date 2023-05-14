@@ -25,7 +25,7 @@ public class OBJ_Key extends Entity {
             return true;
         }
         else{
-            gp.ui.currentDialogue = "What are you doing";
+            gp.ui.currentDialogue = "You look so stuff";
             return  false;
         }
     }

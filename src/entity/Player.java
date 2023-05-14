@@ -3,9 +3,7 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
-import object.OBJ_Key;
-import object.OBJ_Shield_Wood;
-import object.OBJ_Sword_Normal;
+import object.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -72,7 +70,8 @@ public class Player extends Entity {
         inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
-        inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Golden_Key(gp));
+        inventory.add(new OBJ_Golden_Key(gp));
     }
 
     private int getAttack() {
@@ -259,6 +258,7 @@ public class Player extends Entity {
             else if(gp.obj[gp.currentMap][i].type == type_obstacle){
                 if(keyH.enterPress){
                     attackCanceled = true;
+                    System.out.println(gp.obj[gp.currentMap][i].name);
                     gp.obj[gp.currentMap][i].interact();
                 }
             }
