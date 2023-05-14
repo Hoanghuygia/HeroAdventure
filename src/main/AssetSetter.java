@@ -22,10 +22,10 @@ public class AssetSetter {
         gp.obj[mapNum][i] = new OBJ_Key(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 21;
         gp.obj[mapNum][i].worldY = gp.tileSize * 19;
-        i++;
-        gp.obj[mapNum][i] = new OBJ_Key(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize * 26;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 21;
+//        i++;
+//        gp.obj[mapNum][i] = new OBJ_Key(gp);
+//        gp.obj[mapNum][i].worldX = gp.tileSize * 26;
+//        gp.obj[mapNum][i].worldY = gp.tileSize * 21;
         i++;
         gp.obj[mapNum][i] = new OBJ_Axe(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 33;
@@ -48,6 +48,16 @@ public class AssetSetter {
         gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Key(gp));
         gp.obj[mapNum][i].worldX = gp.tileSize * 14;
         gp.obj[mapNum][i].worldY = gp.tileSize * 26;
+
+        i++;
+        gp.obj[mapNum][i] = new OBJ_Golden_Chest(gp, new OBJ_Potion_Red(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize * 26;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 21;
+
+        i++;
+        gp.obj[mapNum][i] = new OBJ_Golden_Chest(gp, new OBJ_Potion_Red(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize * 12;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 23;
     }
 
     public void setNPC() {
