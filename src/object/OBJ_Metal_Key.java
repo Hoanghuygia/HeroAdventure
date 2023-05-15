@@ -14,6 +14,7 @@ public class OBJ_Metal_Key extends Entity{
         name = "Metal Key";
         down1 = setup("/objects/Metalkey", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nIt opens a metal chest.";
+        stackable = true;
     }
     public boolean use(Entity entity){
         gp.gameState = gp.dialogueState;
@@ -28,14 +29,13 @@ public class OBJ_Metal_Key extends Entity{
                     StringBuilder sb = new StringBuilder();
                     sb.append("You use the " + name + " and open the metal chest");
 
-                    if(gp.player.inventory.size() == gp.player.maxInventorySize){
-                        sb.append("\n...You cannot carry anymore!");
+                    if(!gp.player.canObtainItem(matalChest.loot)){
+                        sb.append("\n...BUt you cannot carry anymore!");
                     }
                     else{
                         System.out.println(matalChest.worldX + ": " + matalChest.worldY);
                         System.out.println(gp.obj[gp.currentMap][objIndex].worldX + ": " + gp.obj[gp.currentMap][objIndex].worldY);
                         sb.append("\nYou obtain the " + matalChest.loot.name + "!!");
-                        gp.player.inventory.add(matalChest.loot);
                         matalChest.down1 = matalChest.image2;
                         matalChest.collision = false;
                     }

@@ -14,6 +14,7 @@ public class OBJ_Wooded_Key extends Entity{
         name = "Wooden Key";
         down1 = setup("/objects/Woodkey", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nIt opens a wooden chest.";
+        stackable = true;
     }
     public boolean use(Entity entity){
         gp.gameState = gp.dialogueState;
@@ -28,14 +29,13 @@ public class OBJ_Wooded_Key extends Entity{
                     StringBuilder sb = new StringBuilder();
                     sb.append("You use the " + name + " and open the wooden chest");
 
-                    if(gp.player.inventory.size() == gp.player.maxInventorySize){
-                        sb.append("\n...You cannot carry anymore!");
+                    if(!gp.player.canObtainItem(woodenChest.loot)){
+                        sb.append("\n...But you cannot carry anymore!");
                     }
                     else{
                         System.out.println(woodenChest.worldX + ": " + woodenChest.worldY);
                         System.out.println(gp.obj[gp.currentMap][objIndex].worldX + ": " + gp.obj[gp.currentMap][objIndex].worldY);
                         sb.append("\nYou obtain the " + woodenChest.loot.name + "!!");
-                        gp.player.inventory.add(woodenChest.loot);
                         woodenChest.down1 = woodenChest.image2;
                         woodenChest.collision = false;
                     }
