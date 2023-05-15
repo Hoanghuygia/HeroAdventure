@@ -44,7 +44,7 @@ public class OBJ_Metal_Key extends Entity{
                     return true;
                 }
                 else{
-                    gp.ui.currentDialogue = "You look realy stuff now";
+                    gp.ui.currentDialogue = "You look really stuff now";
                 }
             }
         }
