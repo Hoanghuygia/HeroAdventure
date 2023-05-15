@@ -15,6 +15,7 @@ public class OBJ_Golden_Key extends Entity{
         name = "Golden Key";
         down1 = setup("/objects/Goldenkey", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nIt opens a golden chest.";
+        stackable = true;
     }
     public boolean use(Entity entity){
         gp.gameState = gp.dialogueState;
@@ -29,21 +30,17 @@ public class OBJ_Golden_Key extends Entity{
                     StringBuilder sb = new StringBuilder();
                     sb.append("You use the " + name + " and open the golden chest");
 
-                    if(gp.player.inventory.size() == gp.player.maxInventorySize){
-                        sb.append("\n...You cannot carry anymore!");
+                    if(!gp.player.canObtainItem(goldenChest.loot)){
+                        sb.append("\n...But you cannot carry anymore!");
                     }
                     else{
                         System.out.println(goldenChest.worldX + ": " + goldenChest.worldY);
                         System.out.println(gp.obj[gp.currentMap][objIndex].worldX + ": " + gp.obj[gp.currentMap][objIndex].worldY);
                         sb.append("\nYou obtain the " + goldenChest.loot.name + "!!");
-                        gp.player.inventory.add(goldenChest.loot);
                         goldenChest.down1 = goldenChest.image2;
                         goldenChest.collision = false;
                     }
                     gp.ui.currentDialogue = sb.toString();
-
-//            gp.ui.currentDialogue = "You use the " + name + "and open the golden chest";
-//            gp.obj[gp.currentMap][objIndex] = null;
                     return true;
                 }
                 else{
