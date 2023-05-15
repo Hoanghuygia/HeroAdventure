@@ -17,7 +17,8 @@ public class MON_GreenSlime extends Entity {
 
         type = type_monster;
         name = "Bee Mon";
-        speed = 1;
+        defaultSpeed = 1;
+        speed = defaultSpeed;
         maxLife = 4;
         life = maxLife;
         attack = 5;
@@ -44,55 +45,30 @@ public class MON_GreenSlime extends Entity {
         right1 = setup("/monster/001", gp.tileSize, gp.tileSize);
         right2 = setup("/monster/002", gp.tileSize, gp.tileSize);
     }
-    public void update(){
-        super.update();
-        int xDistance = Math.abs(worldX - gp.player.worldX);//i think the problem is here, we need to consider the position of the monster instead
-        int yDistance = Math.abs(worldY - gp.player.worldY);
-        int titleDistance = (xDistance + yDistance)/gp.tileSize;
-
-        if(!onPath && titleDistance < 5){
-            int i = new Random().nextInt(100) + 1;
-            if(i > 50) onPath = true;
-        }
-        if(onPath) countTime++;
-        System.out.println(countTime);
-        if(onPath && titleDistance > 20){
-            onPath = false;
-            countTime = 0;
-        }
-        if(onPath && countTime > 120){
-            onPath = false;
-            countTime = 0;
-        }
-    }
+//    public void update(){
+//        super.update();
+//
+//    }
 
     public void setAction() {
+
         if(onPath){
-            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
-            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
-            searchPath(goalCol, goalRow);
-        }
-        else{
-            actionLockCounter++;
-            if (actionLockCounter == 120) {
-                Random random = new Random();
-                int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
-
-                if (i <= 25) {
-                    direction = "up";
-                }
-                if (i > 25 && i <= 50) {
-                    direction = "down";
-                }
-                if (i > 50 && i <= 75) {
-                    direction = "left";
-                }
-                if (i > 75 && i <= 100) {
-                    direction = "right";
-                }
-
-                actionLockCounter = 0;
+            //Check if it stops chasing
+            checkStopChasingOrNot(gp.player, 15, 100);
+            countTime++;
+            System.out.println(countTime);
+            if(countTime > 120){
+                onPath = false;
+                countTime = 0;
             }
+            //Search the direction to go
+            searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
+        }
+        else {
+            //check if it starts chasing
+            checkStartChasingOrNot(gp.player, 5, 100);
+            //get random direction
+            getRandomDirection();
         }
     }
 

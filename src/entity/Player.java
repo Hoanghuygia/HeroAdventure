@@ -48,7 +48,8 @@ public class Player extends Entity {
         worldY = gp.tileSize * 21;
 //        worldX = gp.tileSize * 12;
 //        worldY = gp.tileSize * 13;
-        speed = 4;
+        defaultSpeed = 4;
+        speed = defaultSpeed;
         direction = "down";
 
         // PLAYER STATUS
@@ -233,7 +234,7 @@ public class Player extends Entity {
 
             // Check monster collision with the updated worldX, worldY and solidArea
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            damageMonster(monsterIndex);
+            damageMonster(monsterIndex, currentWeapon.knockBackPower);
 
             // Attack checking collision, restore the original data
             worldX = currentWorldX;
@@ -306,11 +307,13 @@ public class Player extends Entity {
         }
     }
 
-    public void damageMonster(int i) {
+    public void damageMonster(int i, int knockBackPower) {
 //        Graphics2D g2 = new Graphics2D();
         if (i != 999) {
             if (!gp.monster[gp.currentMap][i].invincible) {
                 gp.playSE(5);
+                if(knockBackPower > 0) knockBack(gp.monster[gp.currentMap][i], knockBackPower);
+
 
                 int damage = attack - gp.monster[gp.currentMap][i].defense;
                 if (damage < 0) {
@@ -336,6 +339,11 @@ public class Player extends Entity {
                 }
             }
         }
+    }
+    public void knockBack(Entity entity, int knockBackPower){
+        entity.direction = direction;
+        entity.speed += knockBackPower;
+        entity.knockBack = true;
     }
 
     public void checkLevelUp() {

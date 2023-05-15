@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 public class Entity {
 
@@ -32,6 +33,7 @@ public class Entity {
     public boolean dying = false;
     boolean hpBarOn = false;
     public boolean onPath = false;
+    public boolean knockBack= false;
 
     // COUNTER
     public int spriteCounter = 0;
@@ -39,10 +41,12 @@ public class Entity {
     public int invincibleCounter = 0;
     int dyingCounter = 0;
     int hpBarCounter = 0;
+    int knockBackCounter = 0;
 
     // CHARACTER ATTRIBUTES
     public String name;
     public int speed;
+    public int defaultSpeed;
     public int maxLife;
     public int life;
     public int level;
@@ -62,6 +66,7 @@ public class Entity {
     public String description = "";
     public boolean stackable = false;
     public int amount = 1;
+    public int knockBackPower = 0;
 
     // TYPE
     public int type; // 0 = player, 1 = npc, 2 = monster
@@ -118,6 +123,26 @@ public class Entity {
             }
         }
     }
+    public int getXDistance(Entity target){
+        int xDistance = Math.abs(worldX - target.worldX);
+        return  xDistance;
+    }
+    public int getYDistance(Entity target){
+        int yDistance = Math.abs(worldY - target.worldY);
+        return  yDistance;
+    }
+    public int getTileDistance(Entity target){
+        int tileDistance = (getXDistance(target) + getYDistance(target))/gp.tileSize;
+        return tileDistance;
+    }
+    public int getGoalCol(Entity target){
+        int goalCol = (target.worldX + target.solidArea.x)/gp.tileSize;
+        return goalCol;
+    }
+    public int getGoalRow(Entity target){
+        int goalRow = (target.worldY + target.solidArea.y)/gp.tileSize;
+        return goalRow;
+    }
 
     public void setAction() {}
     public void damageReaction() {}
@@ -148,18 +173,54 @@ public class Entity {
     public boolean use(Entity entity) {return false;}
 
     public void update() {
-        setAction();
-        checkCollision();
-
-        // IF COLLISION IS FALSE, PLAYER CAN MOVE
-        if (!collisionOn) {
-            switch (direction) {
-                case "up": worldY -= speed; break;
-                case "down": worldY += speed; break;
-                case "left": worldX -= speed; break;
-                case "right": worldX += speed; break;
+        if(knockBack){
+            checkCollision();
+            if(collisionOn){
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            }
+            else if(!collisionOn){
+                switch (gp.player.direction){
+                    case "up": worldY -= speed; break;
+                    case "down": worldY += speed; break;
+                    case "left": worldX -= speed; break;
+                    case "right": worldX += speed; break;
+                }
+            }
+            knockBackCounter++;
+            if(knockBackCounter == 3){
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
             }
         }
+        else{
+            setAction();
+            checkCollision();
+
+            // IF COLLISION IS FALSE, PLAYER CAN MOVE
+            if (!collisionOn) {
+                switch (direction) {
+                    case "up": worldY -= speed; break;
+                    case "down": worldY += speed; break;
+                    case "left": worldX -= speed; break;
+                    case "right": worldX += speed; break;
+                }
+            }
+        }
+//        setAction();
+//        checkCollision();
+//
+//        // IF COLLISION IS FALSE, PLAYER CAN MOVE
+//        if (!collisionOn) {
+//            switch (direction) {
+//                case "up": worldY -= speed; break;
+//                case "down": worldY += speed; break;
+//                case "left": worldX -= speed; break;
+//                case "right": worldX += speed; break;
+//            }
+//        }
 
         spriteCounter++;
         if (spriteCounter > 12) {
@@ -276,6 +337,39 @@ public class Entity {
         }
 //        dyingCounter = 0;
     }
+    public void checkStopChasingOrNot(Entity target, int distance, int rate){
+        if(getTileDistance(target) > distance){
+            int i = new Random().nextInt(rate);
+            if(i == 0) onPath = false;
+        }
+    }
+    public void checkStartChasingOrNot(Entity target, int distance, int rate){
+        if(getTileDistance(target) < distance){
+            int i = new Random().nextInt(rate);
+            if(i == 0) onPath = true;
+        }
+    }
+    public void getRandomDirection(){
+        actionLockCounter++;
+        if (actionLockCounter == 120) {
+            Random random = new Random();
+            int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
+
+            if (i <= 25) direction = "up";
+            if (i > 25 && i <= 50) direction = "down";
+            if (i > 50 && i <= 75) direction = "left";
+            if (i > 75 && i <= 100) direction = "right";
+
+            actionLockCounter = 0;
+        }
+    }
+    public void setKnockBack(Entity entity, int knowBackPower){
+//        entity.direction = direction;
+        entity.speed += knowBackPower;
+        entity.knockBack = true;
+    }
+
+
 
     public void changeAlpha(Graphics2D g2, float alphaValue) {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
