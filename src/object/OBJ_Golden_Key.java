@@ -5,7 +5,6 @@ import main.GamePanel;
 
 public class OBJ_Golden_Key extends Entity{
     GamePanel gp;
-//    OBJ_Golden_Chest goldenChest = new OBJ_Golden_Chest(gp, new OBJ_Potion_Red(gp));
 
 
     public OBJ_Golden_Key(GamePanel gp) {
@@ -14,7 +13,7 @@ public class OBJ_Golden_Key extends Entity{
 
         type = type_consumable;
         name = "Golden Key";
-        down1 = setup("/objects/key", gp.tileSize, gp.tileSize);
+        down1 = setup("/objects/Goldenkey", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nIt opens a golden chest.";
     }
     public boolean use(Entity entity){
@@ -24,24 +23,32 @@ public class OBJ_Golden_Key extends Entity{
         if(objIndex != 999){//need one more if here to check opened
             if(gp.obj[gp.currentMap][objIndex] instanceof OBJ_Golden_Chest){
                 OBJ_Golden_Chest goldenChest = (OBJ_Golden_Chest) gp.obj[gp.currentMap][objIndex];
-                gp.playSE(3);
-                StringBuilder sb = new StringBuilder();
-                sb.append("You use the " + name + "and open the golden chest");
+                if(!goldenChest.opened){
+                    goldenChest.opened = true;
+                    gp.playSE(3);
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("You use the " + name + " and open the golden chest");
 
-                if(gp.player.inventory.size() == gp.player.maxInventorySize){
-                    sb.append("\n...You cannot carry anymore!");
-                }
-                else{
-                    sb.append("\nYou obtain the " + goldenChest.loot.name + "!!");
-                    gp.player.inventory.add(goldenChest.loot);
-                    goldenChest.down1 = goldenChest.image2;
-                    goldenChest.collision = false;
-                }
-                gp.ui.currentDialogue = sb.toString();
+                    if(gp.player.inventory.size() == gp.player.maxInventorySize){
+                        sb.append("\n...You cannot carry anymore!");
+                    }
+                    else{
+                        System.out.println(goldenChest.worldX + ": " + goldenChest.worldY);
+                        System.out.println(gp.obj[gp.currentMap][objIndex].worldX + ": " + gp.obj[gp.currentMap][objIndex].worldY);
+                        sb.append("\nYou obtain the " + goldenChest.loot.name + "!!");
+                        gp.player.inventory.add(goldenChest.loot);
+                        goldenChest.down1 = goldenChest.image2;
+                        goldenChest.collision = false;
+                    }
+                    gp.ui.currentDialogue = sb.toString();
 
 //            gp.ui.currentDialogue = "You use the " + name + "and open the golden chest";
 //            gp.obj[gp.currentMap][objIndex] = null;
-                return true;
+                    return true;
+                }
+                else{
+                    gp.ui.currentDialogue = "You look realy stuff now";
+                }
             }
         }
         else{
