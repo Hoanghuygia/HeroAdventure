@@ -181,7 +181,7 @@ public class KeyHandler implements KeyListener {
         int maxCommand = 0;
         switch (gp.ui.subState){
             case 0:
-                maxCommand = 5;
+                maxCommand = 6;
                 break;
 
             case 1:
@@ -190,21 +190,28 @@ public class KeyHandler implements KeyListener {
             case 3:
                 maxCommand = 1;
                 break;
+            case 4:
+                maxCommand = 3;
+
         }
         if (code == KeyEvent.VK_S) {
             gp.ui.commandNum++;
-            if (gp.ui.commandNum > maxCommand) {
+
+            if (gp.ui.commandNum > maxCommand ) {
                 gp.playSE(9);
                 gp.ui.commandNum = 0;
             }
         }
+
         if (code == KeyEvent.VK_W) {
             gp.ui.commandNum--;
+
             if (gp.ui.commandNum < 0) {
                 gp.playSE(9);
                 gp.ui.commandNum = maxCommand;
             }
         }
+
         if(code == KeyEvent.VK_A){
             if(gp.ui.subState == 0){
                 if(gp.ui.commandNum == 1 && gp.music.volumeScale > 0){
@@ -234,6 +241,38 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
+
+//    public void GuidanceState(int code){
+//        if(code == KeyEvent.VK_ENTER){
+//            enterPress = true;
+//        }
+//        int maxCommand = 5;
+//        switch(gp.ui.subState1){
+//            case 0:
+//                maxCommand = 5;
+//        }
+//
+//        if (code == KeyEvent.VK_S) {
+//            gp.ui.commandNum = 5;
+//
+//            if (gp.ui.commandNum > maxCommand ) {
+//                gp.playSE(9);
+//                gp.ui.commandNum = 0;
+//            }
+//        }
+//        if (code == KeyEvent.VK_W) {
+//            gp.ui.commandNum = 5;
+//
+//            if (gp.ui.commandNum < 0) {
+//                gp.playSE(9);
+//                gp.ui.commandNum = maxCommand;
+//            }
+//        }
+//
+//    }
+
+
+
 
 
     @Override
