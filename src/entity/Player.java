@@ -238,7 +238,7 @@ public class Player extends Entity {
 
             // Check monster collision with the updated worldX, worldY and solidArea
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            damageMonster(monsterIndex);
+            damageMonster(monsterIndex, attack, currentWeapon.knockBackPower);
 
             // Attack checking collision, restore the original data
             worldX = currentWorldX;
@@ -311,13 +311,15 @@ public class Player extends Entity {
         }
     }
 
-    public void damageMonster(int i) {
+    public void damageMonster(int i, int attack, int knockBackPower) {
 //        Graphics2D g2 = new Graphics2D();
         if (i != 999) {
             if (!gp.monster[gp.currentMap][i].invincible) {
                 gp.playSE(5);
 
-                knockBack(gp.monster[gp.currentMap][i]);
+                if(knockBackPower > 0) knockBack(gp.monster[gp.currentMap][i], knockBackPower);
+
+
 
                 int damage = attack - gp.monster[gp.currentMap][i].defense;
                 if (damage < 0) {
@@ -344,9 +346,9 @@ public class Player extends Entity {
             }
         }
     }
-    public void knockBack(Entity entity){
+    public void knockBack(Entity entity, int knockBackPower){
         entity.direction = direction;
-        entity.speed += 10;
+        entity.speed += knockBackPower;
         entity.knockBack = true;
     }
 
