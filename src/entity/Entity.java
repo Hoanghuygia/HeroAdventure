@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 public class Entity {
 
@@ -99,6 +100,26 @@ public class Entity {
     }
     public int getRow(){
         return (worldY + solidArea.y)/gp.tileSize;
+    }
+    public int getXDistance(Entity target){
+        int xDistance = Math.abs(worldX - target.worldX);
+        return xDistance;
+    }
+    public int getYDistance(Entity target){
+        int yDistance = Math.abs(worldY - target.worldY);
+        return yDistance;
+    }
+    public int tileDistance(Entity target){
+        int tileDistance = (getXDistance(target) + getYDistance(target))/gp.tileSize;
+        return tileDistance;
+    }
+    public int getGoalCol(Entity target){
+        int goalCol = (target.worldX + target.solidArea.x) / gp.tileSize;
+        return  goalCol;
+    }
+    public int getGoalRow(Entity target){
+        int goalRow = (target.worldY + target.solidArea.y) / gp.tileSize;
+        return  goalRow;
     }
     public void checkCollision(){
         collisionOn = false;
@@ -283,6 +304,44 @@ public class Entity {
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 
             changeAlpha(g2, 1F);
+        }
+    }
+    public void checkStopChasingOrNot(Entity target, int distance, int rate){
+        if(tileDistance(target) > distance){
+            int i = new Random().nextInt(rate);
+            if(i == 0) {
+                onPath = false;
+            }
+        }
+    }
+    public void checkStartChasingOrNot(Entity target, int distance, int rate){
+        if(tileDistance(target) < distance){
+            int i = new Random().nextInt(rate);
+            if(i == 0) {
+                onPath = true;
+            }
+        }
+    }
+    public void getRamdomDirection(){
+        actionLockCounter++;
+        if (actionLockCounter == 120) {
+            Random random = new Random();
+            int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
+
+            if (i <= 25) {
+                direction = "up";
+            }
+            if (i > 25 && i <= 50) {
+                direction = "down";
+            }
+            if (i > 50 && i <= 75) {
+                direction = "left";
+            }
+            if (i > 75 && i <= 100) {
+                direction = "right";
+            }
+
+            actionLockCounter = 0;
         }
     }
 
