@@ -15,7 +15,9 @@ public class Player extends Entity {
 
     KeyHandler keyH;
     public final int screenX;
+    public int playerDefaultWorldX;
     public final int screenY;
+    public int playerDefaultWorldY;
     int standCounter = 0;
     public boolean attackCanceled = false;
     public ArrayList<Entity> inventory = new ArrayList<>();
@@ -46,6 +48,8 @@ public class Player extends Entity {
     public void setDefaultValues() {
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
+        playerDefaultWorldX = worldX;
+        playerDefaultWorldY = worldY;
 //        worldX = gp.tileSize * 12;
 //        worldY = gp.tileSize * 13;
         defaultSpeed = 4;
