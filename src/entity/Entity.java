@@ -65,6 +65,7 @@ public class Entity {
     public String description = "";
     public boolean stackable = false;
     public int amount = 1;
+    public int knockBackPower = 0;
 
     // TYPE
     public int type; // 0 = player, 1 = npc, 2 = monster
