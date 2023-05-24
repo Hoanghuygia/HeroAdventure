@@ -26,9 +26,6 @@ public class UI {
     public int commandNum = 0;
     public int subState1 = 0;
     public boolean activeGuidance = true;
-    public boolean checkAction = true;
-    public boolean atBackposition = false;
-
 
     public int titleScreenState = 0; // 0: the first screen, 1: the second screen
     public int slotCol = 0;
@@ -79,7 +76,7 @@ public class UI {
             if (activeGuidance == true){
                 drawGuidance();
             }
-            if(checkAction == true && atBackposition == false){
+            else{
                 drawPlayerLife();
                 drawMessage();
             }
@@ -97,7 +94,7 @@ public class UI {
             drawDialogueScreen();
         }
         // CHARACTER STATE
-        if (gp.gameState == gp.characterState) {//cái này để tlàm gì thì thực sự là mình khồn biế
+        if (gp.gameState == gp.characterState) {
             drawCharacterScreen();
             drawInventory();
         }
@@ -123,57 +120,13 @@ public class UI {
         int frameHeight = gp.tileSize * 10;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
         option_Guidance(frameX,frameY);
+        gp.player.attackCanceled = true;
         switch (subState1){
             case 0:
                 option_Guidance(frameX,frameY);
         }
 
     }
-
-    public void option_Guidance(int frameX , int frameY){
-        int textX;
-        int textY;
-        String text = "GAME GUIDANCE";
-        textX = getXforCenteredText(text) - 15;
-        textY = frameY + gp.tileSize;
-        g2.drawString(text,textX,textY);
-        Line2D line =new Line2D.Float(frameX+gp.tileSize+135, textY+30,frameX+gp.tileSize+135,(gp.tileSize+10)*6+40);
-        g2.draw(line);
-
-        // MOVEMENT CONTROL
-        textX = frameX + gp.tileSize;
-        textY = frameY + 2*gp.tileSize + 15;
-        g2.drawString("W",textX-10 , textY);
-        g2.drawString("Go ahead",textX+200, textY);
-        textY+= gp.tileSize + 10;
-        g2.drawString("S",textX-10 , textY);
-        g2.drawString("Go down",textX+200, textY);
-        textY+= gp.tileSize + 10;
-        g2.drawString("A",textX-10 , textY);
-        g2.drawString("Move left",textX+200, textY);
-        textY+= gp.tileSize + 10;
-        g2.drawString("D",textX-10 , textY);
-        g2.drawString("Move right",textX+200, textY);
-        textY+= gp.tileSize + 10;
-        g2.drawString("Enter",textX-10 , textY);
-        g2.drawString("Attack",textX+200, textY);
-
-        // BACK BUTTON
-        textY += gp.tileSize * 2 - 15;
-        g2.drawString("Back", textX, textY);
-        g2.drawString(">", textX - 25, textY);
-        if(gp.keyH.enterPress){
-            checkAction = false;
-            atBackposition = true;
-            activeGuidance = false;
-            gp.gameState = gp.playState;
-            commandNum = 0;
-        }
-
-
-
-    }
-
     public void drawPlayerLife() {
         int x = gp.tileSize / 2;
         int y = gp.tileSize / 2;
@@ -570,6 +523,42 @@ public class UI {
         }
 
     }
+    public void option_Guidance(int frameX , int frameY){
+        int textX;
+        int textY;
+        String text = "GAME GUIDANCE";
+        textX = getXforCenteredText(text) - 15;
+        textY = frameY + gp.tileSize;
+        g2.drawString(text,textX,textY);
+        Line2D line =new Line2D.Float(frameX+gp.tileSize+135, textY+30,frameX+gp.tileSize+135,(gp.tileSize+10)*6+40);
+        g2.draw(line);
+
+        // MOVEMENT CONTROL
+        textX = frameX + gp.tileSize;
+        textY = frameY + 2*gp.tileSize + 15;
+        g2.drawString("W",textX-10 , textY);
+        g2.drawString("Go ahead",textX+200, textY);
+        textY+= gp.tileSize + 10;
+        g2.drawString("S",textX-10 , textY);
+        g2.drawString("Go down",textX+200, textY);
+        textY+= gp.tileSize + 10;
+        g2.drawString("A",textX-10 , textY);
+        g2.drawString("Move left",textX+200, textY);
+        textY+= gp.tileSize + 10;
+        g2.drawString("D",textX-10 , textY);
+        g2.drawString("Move right",textX+200, textY);
+        textY+= gp.tileSize + 10;
+        g2.drawString("Enter",textX-10 , textY);
+        g2.drawString("Attack",textX+200, textY);
+
+        //If the player position differ from the default position, the guide option disappear
+        if(gp.player.worldX != gp.player.playerDefaultWorldX || gp.player.worldY != gp.player.playerDefaultWorldY){
+            activeGuidance = false;
+            gp.gameState = gp.playState;
+            commandNum = 0;
+        }
+
+    }
     public void options_top(int frameX, int frameY){
         int textX, textY;
         String text = "Option";
@@ -873,28 +862,4 @@ public class UI {
             }
         }
     }
-
-//    public void drawGuidance(int frameX , int frameY){
-//        int actioncounter = 0;
-//        actioncounter++;
-//        int textX;
-//        int textY;
-//        String text = "GAME GUIDANCE";
-//        textX = getXforCenteredText(text) + 40;
-//        textY = frameY + gp.tileSize;
-//        g2.drawString(text,textX,textY);
-//
-//        // CONTROL GUIDANCE
-//        textX = frameX + gp.tileSize;
-//        textY = frameY + 2*gp.tileSize + 15;
-//        if (actioncounter == 10){
-//          g2.drawString("W",textX-30,textY);
-//            g2.drawString("Go ahead",textX+10,textY);
-//        }
-//
-//    }
-
-
-
-
 }
