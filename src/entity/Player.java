@@ -48,7 +48,8 @@ public class Player extends Entity {
         worldY = gp.tileSize * 21;
 //        worldX = gp.tileSize * 12;
 //        worldY = gp.tileSize * 13;
-        speed = 4;
+        defaultSpeed = 4;
+        speed = defaultSpeed;
         direction = "down";
 
         // PLAYER STATUS
@@ -312,6 +313,8 @@ public class Player extends Entity {
             if (!gp.monster[gp.currentMap][i].invincible) {
                 gp.playSE(5);
 
+                knockBack(gp.monster[gp.currentMap][i]);
+
                 int damage = attack - gp.monster[gp.currentMap][i].defense;
                 if (damage < 0) {
                     damage = 0;
@@ -337,6 +340,12 @@ public class Player extends Entity {
             }
         }
     }
+    public void knockBack(Entity entity){
+        entity.direction = direction;
+        entity.speed += 10;
+        entity.knockBack = true;
+    }
+
 
     public void checkLevelUp() {
         if (exp >= nextLevelExp) {

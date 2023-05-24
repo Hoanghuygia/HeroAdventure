@@ -123,6 +123,7 @@ public class UI {
         int frameHeight = gp.tileSize * 10;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
         option_Guidance(frameX,frameY);
+        gp.player.attackCanceled = true;
         switch (subState1){
             case 0:
                 option_Guidance(frameX,frameY);
