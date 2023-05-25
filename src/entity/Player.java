@@ -38,6 +38,8 @@ public class Player extends Entity {
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 32;
         solidArea.height = 32;
+        motion1_duration = 5;
+        motion2_duration = 25;
 
         setDefaultValues();
         getPlayerImage();
@@ -82,6 +84,8 @@ public class Player extends Entity {
 
     private int getAttack() {
         attackArea = currentWeapon.attackArea;//?why this is currentShield, it must be currentWeapon instead
+        motion1_duration = currentWeapon.motion1_duration;
+        motion2_duration = currentWeapon.motion2_duration;
         return attack = strength * currentWeapon.attackValue;
     }
 
