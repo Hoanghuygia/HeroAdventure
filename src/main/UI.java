@@ -380,7 +380,7 @@ public class UI {
             }
 
             g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
-            
+
             //DISPLAY AMOUNT
             if(gp.player.inventory.get(i).amount > 1){
                 g2.setFont(g2.getFont().deriveFont(32f));

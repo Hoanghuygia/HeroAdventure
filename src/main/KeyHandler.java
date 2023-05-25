@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPress;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPress, backSpacePressed;
 
     // DEBUG
     boolean showDebugText = false;
@@ -102,6 +102,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_ENTER) {
             enterPress = true;
+        }
+        if(code == KeyEvent.VK_BACK_SPACE){
+            backSpacePressed = true;
         }
         if(code == KeyEvent.VK_ESCAPE){
             gp.gameState = gp.optionsState;
@@ -290,6 +293,12 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
+        }
+        if(code == KeyEvent.VK_BACK_SPACE){
+            backSpacePressed = false;
+        }
+        if(code == KeyEvent.VK_ENTER){
+            enterPress = false;
         }
     }
     public void gameOverState(int code){

@@ -34,7 +34,7 @@ public class MON_Orc extends Entity {
         motion2_duration = 85;
 
         getImage();
-        getAttakImage();
+        getAttackImage();
     }
 
     public void getImage() {
@@ -47,7 +47,7 @@ public class MON_Orc extends Entity {
         right1 = setup("/monster/orc_right_1", gp.tileSize, gp.tileSize);
         right2 = setup("/monster/orc_right_2", gp.tileSize, gp.tileSize);
     }
-    public void getAttakImage(){
+    public void getAttackImage(){
         attackUp1 = setup("/monster/orc_attack_up_1", gp.tileSize, gp.tileSize * 2);
         attackUp2 = setup("/monster/orc_attack_up_2", gp.tileSize, gp.tileSize * 2);
         attackDown1 = setup("/monster/orc_attack_down_1", gp.tileSize, gp.tileSize * 2);

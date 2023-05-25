@@ -44,6 +44,7 @@ public class Player extends Entity {
         setDefaultValues();
         getPlayerImage();
         getPlayerAttackImage();
+        getGuardImage();
         setItems();
     }
 
@@ -126,12 +127,21 @@ public class Player extends Entity {
             attackRight2 = setup("/player/boy_axe_right_2", gp.tileSize * 2, gp.tileSize);
         }
     }
+    public void getGuardImage(){
+        guardUp = setup("/player/boy_guard_up", gp.tileSize, gp.tileSize);
+        guardDown = setup("/player/boy_guard_down", gp.tileSize, gp.tileSize);
+        guardLeft= setup("/player/boy_guard_left", gp.tileSize, gp.tileSize);
+        guardRight = setup("/player/boy_guard_right", gp.tileSize, gp.tileSize);
+    }
 
     public void update() {
         if (attacking) {
-//            attacking();
             attacking();
-        } else if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPress) {//why enterPress here?
+        }
+        else if(keyH.backSpacePressed){//guarfing after attack mean that you can guarding when attacking
+            guarding = true;
+        }
+        else if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPress) {//why enterPress here?
             if (keyH.upPressed) {
                 direction = "up";
             } else if (keyH.downPressed) {
@@ -160,7 +170,8 @@ public class Player extends Entity {
             if(monsterIndex < 20 && monsterIndex > 0){
                 if(!gp.monster[gp.currentMap][monsterIndex].dying){
                     int monsterAttack = gp.monster[gp.currentMap][monsterIndex].attack;
-                    damePlayer(monsterAttack);
+//                    damePlayer(monsterAttack);
+                    damagePlayer(monsterAttack);
                 }
             }
 
@@ -185,6 +196,7 @@ public class Player extends Entity {
 
             attackCanceled = false;
             gp.keyH.enterPress = false;
+            guarding = false;
 
             spriteCounter++;
             if (spriteCounter > 12) {
@@ -202,6 +214,8 @@ public class Player extends Entity {
                 spriteNum = 1;
                 standCounter = 0;
             }
+            guarding = false;//when we dont press any key, then reset the guarding variable
+            //why do not reset enterPressed
         }
 
         // This need to be outside of key if statement!
@@ -219,8 +233,6 @@ public class Player extends Entity {
             gp.playSE(10);
         }
     }
-
-
 
     public void pickUpObject(int i) {//Still cant open the doors or chests
         if (i != 999) {
@@ -431,6 +443,7 @@ public class Player extends Entity {
                     if (spriteNum == 1) {image = attackUp1;}
                     if (spriteNum == 2) {image = attackUp2;}
                 }
+                if(guarding) image = guardUp;
                 break;
             case "down":
                 if (!attacking) {
@@ -441,6 +454,8 @@ public class Player extends Entity {
                     if (spriteNum == 1) {image = attackDown1;}
                     if (spriteNum == 2) {image = attackDown2;}
                 }
+                if(guarding) image = guardDown;
+
                 break;
             case "left":
                 if (!attacking) {
@@ -452,6 +467,8 @@ public class Player extends Entity {
                     if (spriteNum == 1) {image = attackLeft1;}
                     if (spriteNum == 2) {image = attackLeft2;}
                 }
+                if(guarding) image = guardLeft;
+
                 break;
             case "right":
                 if (!attacking) {
@@ -462,6 +479,8 @@ public class Player extends Entity {
                     if (spriteNum == 1) {image = attackRight1;}
                     if (spriteNum == 2) {image = attackRight2;}
                 }
+                if(guarding) image = guardRight;
+
                 break;
         }
 
