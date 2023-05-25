@@ -15,6 +15,7 @@ public class Entity {
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
     public BufferedImage image, image2, image3;
+    public BufferedImage guardUp, guardDown, guardLeft, guardRight;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
     public int solidAreaDefaultX, solidAreaDefaultY;
@@ -44,6 +45,7 @@ public class Entity {
     int dyingCounter = 0;
     int hpBarCounter = 0;
     int knockBackCounter = 0;
+    public boolean guarding = false;
 
     // CHARACTER ATTRIBUTES
     public int defaultSpeed;
@@ -261,24 +263,6 @@ public class Entity {
             worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
             worldY - gp.tileSize < gp.player.worldY + gp.player.screenY)
         {
-//            switch (direction) {
-//                case "up":
-//                    if (spriteNum == 1) {image = up1;}
-//                    if (spriteNum == 2) {image = up2;}
-//                    break;
-//                case "down":
-//                    if (spriteNum == 1) {image = down1;}
-//                    if (spriteNum == 2) {image = down2;}
-//                    break;
-//                case "left":
-//                    if (spriteNum == 1) {image = left1;}
-//                    if (spriteNum == 2) {image = left2;}
-//                    break;
-//                case "right":
-//                    if (spriteNum == 1) {image = right1;}
-//                    if (spriteNum == 2) {image = right2;}
-//                    break;
-//            }
             int tempScreenX = screenX;
             int tempScreenY = screenY;
 
@@ -400,6 +384,16 @@ public class Entity {
             actionLockCounter = 0;
         }
     }
+    public String getOppositeDirection(String direction){
+        String oppositeDirection = "";
+        switch (direction){
+            case "up": oppositeDirection = "down"; break;
+            case "down": oppositeDirection = "up"; break;
+            case "left": oppositeDirection = "right"; break;
+            case "right": oppositeDirection = "left"; break;
+        }
+        return oppositeDirection;
+    }
     public void attacking() {
         spriteCounter++;
 
@@ -429,8 +423,10 @@ public class Entity {
 
             if(type == type_monster){
                 if(gp.cChecker.checkPlayer(this)){
-                    gp.player.damePlayer(attack);//there some error here!!!
+//                    gp.player.damePlayer(attack);//there some error here!!!
+                    damagePlayer(attack);
                 }
+
             }
             else{
                 //PLAYER
@@ -451,6 +447,27 @@ public class Entity {
             spriteNum = 1;
             spriteCounter = 0;
             attacking = false;
+        }
+    }
+    public void damagePlayer(int attack){
+        if(!gp.player.invincible){
+            int damage = attack - gp.player.defense;
+
+            //get the opposite direction
+            String canGuarDirection = getOppositeDirection(direction);//nó chỉ pass mỗi direction là sao nhỉ
+
+            if(gp.player.guarding && gp.player.direction.equals(canGuarDirection)){
+                damage/= 5;
+                gp.playSE(12);
+//                if(damage < 0) damage = 0;
+
+            }
+            else{
+                gp.playSE(6);
+                if(damage < 1) damage = 1;
+            }
+            gp.player.life -= damage;
+            gp.player.invincible = true;
         }
     }
     public void checkAttackOrNot(int rate, int straight, int horizontal){
