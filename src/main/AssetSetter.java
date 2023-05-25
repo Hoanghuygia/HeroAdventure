@@ -3,6 +3,8 @@ package main;
 import entity.NPC_OldMan;
 import monster.MON_GreenSlime;
 import monster.MON_Orc;
+import monster.MON_White;
+import monster.MON_Yellow;
 import object.*;
 
 public class AssetSetter {
@@ -101,5 +103,10 @@ public class AssetSetter {
         gp.monster[mapNum][i] = new MON_Orc(gp);
         gp.monster[mapNum][i].worldX = gp.tileSize * 12;
         gp.monster[mapNum][i].worldY = gp.tileSize * 33;
+
+        //test
+        gp.monster[mapNum][i] = new MON_Yellow(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 15;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 20;
     }
 }
