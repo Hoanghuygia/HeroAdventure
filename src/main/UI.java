@@ -380,6 +380,24 @@ public class UI {
             }
 
             g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
+            
+            //DISPLAY AMOUNT
+            if(gp.player.inventory.get(i).amount > 1){
+                g2.setFont(g2.getFont().deriveFont(32f));
+                int amountX;
+                int amountY;
+
+                String s = "" + gp.player.inventory.get(i).amount;
+                amountX = getXforAlignToRightText(s, slotX + 44);
+                amountY = slotY + gp.tileSize;
+                //SHADOW
+                g2.setColor(new Color(60, 60, 60));
+                g2.drawString(s, amountX, amountY);
+                //NUMBEER
+                g2.setColor(Color.white);
+                g2.drawString(s, amountX - 3, amountY - 3);
+
+            }
             slotX += slotSize;
 
             if (i == 4 || i == 9 || i == 13) {//not 14
