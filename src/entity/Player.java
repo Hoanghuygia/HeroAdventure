@@ -38,6 +38,8 @@ public class Player extends Entity {
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 32;
         solidArea.height = 32;
+        motion1_duration = 5;
+        motion2_duration = 25;
 
         setDefaultValues();
         getPlayerImage();
@@ -82,6 +84,8 @@ public class Player extends Entity {
 
     private int getAttack() {
         attackArea = currentWeapon.attackArea;//?why this is currentShield, it must be currentWeapon instead
+        motion1_duration = currentWeapon.motion1_duration;
+        motion2_duration = currentWeapon.motion2_duration;
         return attack = strength * currentWeapon.attackValue;
     }
 
@@ -125,6 +129,7 @@ public class Player extends Entity {
 
     public void update() {
         if (attacking) {
+//            attacking();
             attacking();
         } else if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPress) {//why enterPress here?
             if (keyH.upPressed) {
@@ -151,7 +156,13 @@ public class Player extends Entity {
 
             // CHECK Monster COLLISION
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            contactMonster(monsterIndex);
+//            contactMonster(monsterIndex);
+            if(monsterIndex < 20 && monsterIndex > 0){
+                if(!gp.monster[gp.currentMap][monsterIndex].dying){
+                    int monsterAttack = gp.monster[gp.currentMap][monsterIndex].attack;
+                    damePlayer(monsterAttack);
+                }
+            }
 
             // CHECK EVENT
             gp.eHandler.checkEvent();//no need
@@ -209,49 +220,7 @@ public class Player extends Entity {
         }
     }
 
-    private void attacking() {
-        spriteCounter++;
 
-        if (spriteCounter <= 5) {
-            spriteNum = 1;
-        }
-        if (spriteCounter > 5 && spriteCounter <= 25) {
-            spriteNum = 2;
-
-            // Save the current worldX, worldY solidArea
-            int currentWorldX = worldX;
-            int currentWorldY = worldY;
-            int solidAreaWidth = solidArea.width;
-            int solidAreaHeight = solidArea.height;
-
-            // Adjust player's worldX/Y for the attackArea
-            switch (direction) {
-                case "up": worldY -= attackArea.height; break;
-                case "down": worldY += attackArea.height; break;
-                case "left": worldX -= attackArea.width; break;
-                case "right": worldX += attackArea.width; break;
-            }
-
-            // attackArea becomes solidArea
-            solidArea.width = attackArea.width;
-            solidArea.height = attackArea.height;
-
-            // Check monster collision with the updated worldX, worldY and solidArea
-            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            damageMonster(monsterIndex, attack, currentWeapon.knockBackPower);
-
-            // Attack checking collision, restore the original data
-            worldX = currentWorldX;
-            worldY = currentWorldY;
-            solidArea.width = solidAreaWidth;
-            solidArea.height = solidAreaHeight;
-        }
-        if (spriteCounter > 25) {
-            spriteNum = 1;
-            spriteCounter = 0;
-            attacking = false;
-        }
-    }
 
     public void pickUpObject(int i) {//Still cant open the doors or chests
         if (i != 999) {
@@ -296,28 +265,41 @@ public class Player extends Entity {
         }
     }
 
-    public void contactMonster(int i) {
-        if (i != 999) {
-            if (!invincible && gp.monster[gp.currentMap][i].dying == false) {
-                gp.playSE(6);
+//    public void contactMonster(int i) {
+//        if (i != 999) {
+//            if (!invincible && gp.monster[gp.currentMap][i].dying == false) {
+//                gp.playSE(6);
+//
+//                int damage = gp.monster[gp.currentMap][i].attack - defense;
+//                if (damage < 0) {
+//                    damage = 0;
+//                }
+//                life -= damage;
+//                invincible = true;//Nếu trường hợp mà hp < 0 thì sao
+//            }
+//        }
+//    }
+    public void damePlayer(int attack){
+        if (!invincible) {
+            gp.playSE(6);
 
-                int damage = gp.monster[gp.currentMap][i].attack - defense;
-                if (damage < 0) {
-                    damage = 0;
-                }
-                life -= damage;
-                invincible = true;//Nếu trường hợp mà hp < 0 thì sao
+            int damage = attack - defense;
+            if (damage < 0) {
+                damage = 0;
             }
+            life -= damage;
+            invincible = true;//Nếu trường hợp mà hp < 0 thì sao
         }
     }
 
-    public void damageMonster(int i, int attack, int knockBackPower) {
+
+    public void damageMonster(int i, Entity attacker, int attack, int knockBackPower) {
 //        Graphics2D g2 = new Graphics2D();
         if (i != 999) {
             if (!gp.monster[gp.currentMap][i].invincible) {
                 gp.playSE(5);
 
-                if(knockBackPower > 0) knockBack(gp.monster[gp.currentMap][i], knockBackPower);
+                if(knockBackPower > 0) setKnockBack(gp.monster[gp.currentMap][i], attacker, knockBackPower);
 
 
 
@@ -346,11 +328,7 @@ public class Player extends Entity {
             }
         }
     }
-    public void knockBack(Entity entity, int knockBackPower){
-        entity.direction = direction;
-        entity.speed += knockBackPower;
-        entity.knockBack = true;
-    }
+
 
 
     public void checkLevelUp() {
