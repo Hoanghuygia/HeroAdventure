@@ -16,6 +16,8 @@ public class OBJ_Sword_Normal extends Entity {
         attackArea.height = 36;
         description = "[" + name + "]\nAn old sword.";
         knockBackPower = 2;
+        bloodAbsorbment = 1;
+
         motion1_duration = 5;
         motion2_duration = 25;
 
