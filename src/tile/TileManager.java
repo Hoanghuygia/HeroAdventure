@@ -25,7 +25,7 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
 
-        InputStream is = getClass().getResourceAsStream("/maps/Testtile.txt");
+        InputStream is = getClass().getResourceAsStream("/maps/Tiledata.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
         String line;
@@ -43,7 +43,7 @@ public class TileManager {
         tile = new Tile[fileNames.size()];
         getTileImage();
 
-        is = getClass().getResourceAsStream("/maps/Testmap.txt");
+        is = getClass().getResourceAsStream("/maps/Gamemap0.txt");
         br = new BufferedReader(new InputStreamReader(is));
         try {
             String line2 = br.readLine();
@@ -59,8 +59,9 @@ public class TileManager {
             System.out.println("Exception!");
         }
 
-        loadMap("/maps/Testmap.txt", 0);
 
+        loadMap("/maps/Gamemap0.txt", 0);
+        loadMap("/maps/Gamemap1.txt", 1);
     }
 
     public void getTileImage() {

@@ -14,15 +14,15 @@ public class AssetSetter {
     }
 
     public void setObject() {
-        int mapNum = 0;
+        int mapNum = 1;
         int i = 0;
         gp.obj[mapNum][i] = new OBJ_Key(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 25;
         gp.obj[mapNum][i].worldY = gp.tileSize * 23;
         i++;
         gp.obj[mapNum][i] = new OBJ_Key(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize * 21;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 19;
+        gp.obj[mapNum][i].worldX = gp.tileSize * 13;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 9;
 //        i++;
 //        gp.obj[mapNum][i] = new OBJ_Key(gp);
 //        gp.obj[mapNum][i].worldX = gp.tileSize * 26;
@@ -42,39 +42,39 @@ public class AssetSetter {
 
         i++;
         gp.obj[mapNum][i] = new OBJ_Door(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize * 14;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 28;
+        gp.obj[mapNum][i].worldX = gp.tileSize * 3;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 6;
 
-        i++;
-        gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Key(gp));
-        gp.obj[mapNum][i].worldX = gp.tileSize * 14;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 26;
+//        i++;
+//        gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Key(gp));
+//        gp.obj[mapNum][i].worldX = gp.tileSize * 14;
+//        gp.obj[mapNum][i].worldY = gp.tileSize * 26;
 
         i++;
         gp.obj[mapNum][i] = new OBJ_Golden_Chest(gp, new OBJ_Potion_Red(gp));
-        gp.obj[mapNum][i].worldX = gp.tileSize * 26;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 21;
+        gp.obj[mapNum][i].worldX = gp.tileSize * 25;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 27;
 
         i++;
         gp.obj[mapNum][i] = new OBJ_Metal_Chest(gp, new OBJ_Potion_Red(gp));
-        gp.obj[mapNum][i].worldX = gp.tileSize * 12;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 23;
+        gp.obj[mapNum][i].worldX = gp.tileSize * 41;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 27;
 
         i++;
         gp.obj[mapNum][i] = new OBJ_Wooden_Chest(gp, new OBJ_Potion_Red(gp));
-        gp.obj[mapNum][i].worldX = gp.tileSize * 12;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 25;
+        gp.obj[mapNum][i].worldX = gp.tileSize * 13;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 27;
     }
 
     public void setNPC() {
-        int mapNum = 0;
+        int mapNum = 1;
         gp.npc[mapNum][0] = new NPC_OldMan(gp);
-        gp.npc[mapNum][0].worldX = gp.tileSize * 21;
+        gp.npc[mapNum][0].worldX = gp.tileSize * 26;
         gp.npc[mapNum][0].worldY = gp.tileSize * 21;
     }
 
     public void setMonster() {
-        int mapNum = 0;
+        int mapNum = 1;
         int i = 0;
 
         gp.monster[mapNum][i] = new MON_GreenSlime(gp);
