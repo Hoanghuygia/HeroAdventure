@@ -319,8 +319,20 @@ public class Player extends Entity {
                 if (damage < 0) {
                     damage = 0;
                 }
+                int prevousHP = this.life;
+                int bloodHealing = (int)(damage * attacker.currentWeapon.bloodAbsorbment);
+
+//                if(gp.player.life < gp.player.maxLife){//blood absorb
+//                    gp.player.life += bloodHealing;
+//                    if(gp.player.life > gp.player.maxLife){
+//                        gp.player.life = gp.player.maxLife;
+//                    }
+//                }
+                bloodAbsorb(this, bloodHealing);
+
                 gp.monster[gp.currentMap][i].life -= damage;
                 gp.ui.addMessage(damage + " damage!");
+                if(this.life > prevousHP) gp.ui.addMessage(this.life - prevousHP + " absorb!");
 
                 gp.monster[gp.currentMap][i].invincible = true;
                 gp.monster[gp.currentMap][i].damageReaction();

@@ -74,6 +74,7 @@ public class Entity {
     public boolean stackable = false;
     public int amount = 1;
     public int knockBackPower = 0;
+    public double bloodAbsorbment;
 
     // TYPE
     public int type; // 0 = player, 1 = npc, 2 = monster
@@ -510,11 +511,19 @@ public class Entity {
         }
     }
 
-    public void setKnockBack(Entity target, Entity attaccker, int knockBackPower){
-        this.attaccker = attaccker;
-        target.knockBackDirection = attaccker.direction;
+    public void setKnockBack(Entity target, Entity attacker, int knockBackPower){
+        this.attaccker = attacker;
+        target.knockBackDirection = attacker.direction;
         target.speed += knockBackPower;
         target.knockBack = true;
+    }
+    public void bloodAbsorb(Entity attacker, int hpAborbed){//hiệu ứng hút máu
+        if(attacker.life < attacker.maxLife){
+            attacker.life += hpAborbed;
+            if(attacker.life > attacker.maxLife){
+                attacker.life = attacker.maxLife;
+            }
+        }
     }
 
     public void dyingAnimation(Graphics2D g2) {
