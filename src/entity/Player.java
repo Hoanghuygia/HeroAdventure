@@ -49,7 +49,7 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
-        worldX = gp.tileSize * 24;
+        worldX = gp.tileSize * 26;
         worldY = gp.tileSize * 22;
         playerDefaultWorldX = worldX;
         playerDefaultWorldY = worldY;
