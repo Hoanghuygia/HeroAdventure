@@ -3,14 +3,12 @@ package monster;
 import entity.Entity;
 import main.GamePanel;
 
-import java.util.Random;
-
-public class MON_GreenSlime extends Entity {
+public class MON_Bee extends Entity {
 
     GamePanel gp;
     int countTime = 0;
 
-    public MON_GreenSlime(GamePanel gp) {
+    public MON_Bee(GamePanel gp) {
         super(gp);
 
         this.gp = gp;
