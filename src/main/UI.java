@@ -521,19 +521,18 @@ public class UI {
         //Retry
         g2.setFont(g2.getFont().deriveFont(50f));
         text = "Retry";
-        x = getXforCenteredText(text);
         y += gp.tileSize * 4;
+        x = getXforCenteredText(text);
         g2.drawString(text, x, y);
         if(commandNum == 0){
             g2.drawString("<", x - 40, y);
-
         }
 
         //Back to the main screen
         g2.setFont(g2.getFont().deriveFont(50f));
         text = "Main Screen";
-        x = getXforCenteredText(text) + 40;
         y += 55;
+        x = getXforCenteredText(text) ;
         g2.drawString(text, x, y);
         if(commandNum == 1){
             g2.drawString("<", x - 40, y);
@@ -725,7 +724,7 @@ public class UI {
         textY += gp.tileSize;
         g2.drawString("Conform/Attack", textX, textY);
         textY += gp.tileSize;
-        g2.drawString("Shoot", textX, textY);
+        g2.drawString("Flashing attack", textX, textY);
         textY += gp.tileSize;
         g2.drawString("Character Status", textX, textY);
         textY += gp.tileSize;
@@ -739,7 +738,7 @@ public class UI {
         textY += gp.tileSize;
         g2.drawString("ENTER", textX, textY);
         textY += gp.tileSize;
-        g2.drawString("SHIFT", textX, textY);
+        g2.drawString("QUOTE", textX, textY);
         textY += gp.tileSize;
         g2.drawString("C", textX, textY);
         textY += gp.tileSize;

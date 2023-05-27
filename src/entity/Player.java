@@ -68,6 +68,7 @@ public class Player extends Entity {
         exp = 0;
         nextLevelExp = 5;//I think that we should let it into a HashTable instead a individual variable
         coin = 0;
+        invincible = false;
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         attack = getAttack(); // The total attack value is decided by strength and weapon
@@ -328,8 +329,9 @@ public class Player extends Entity {
 
 
                 int damage = attack - gp.monster[gp.currentMap][i].defense;
-                if (damage < 0) {
-                    damage = 0;
+                System.out.println("damage" + damage);
+                if (damage <= 0) {
+                    damage = 1;
                 }
                 int prevousHP = this.life;
                 int bloodHealing = (int)(damage * attacker.currentWeapon.bloodAbsorbment);
