@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPress, backSpacePressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPress, backSpacePressed, quotePressed;
 
     // DEBUG
     boolean showDebugText = false;
@@ -99,6 +99,10 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_C) {
             gp.gameState = gp.characterState;
+        }
+        if(code == KeyEvent.VK_QUOTE){
+            gp.playSE(7);
+            quotePressed = true;
         }
         if (code == KeyEvent.VK_ENTER) {
             enterPress = true;
@@ -245,39 +249,6 @@ public class KeyHandler implements KeyListener {
         }
     }
 
-//    public void GuidanceState(int code){
-//        if(code == KeyEvent.VK_ENTER){
-//            enterPress = true;
-//        }
-//        int maxCommand = 5;
-//        switch(gp.ui.subState1){
-//            case 0:
-//                maxCommand = 5;
-//        }
-//
-//        if (code == KeyEvent.VK_S) {
-//            gp.ui.commandNum = 5;
-//
-//            if (gp.ui.commandNum > maxCommand ) {
-//                gp.playSE(9);
-//                gp.ui.commandNum = 0;
-//            }
-//        }
-//        if (code == KeyEvent.VK_W) {
-//            gp.ui.commandNum = 5;
-//
-//            if (gp.ui.commandNum < 0) {
-//                gp.playSE(9);
-//                gp.ui.commandNum = maxCommand;
-//            }
-//        }
-//
-//    }
-
-
-
-
-
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
@@ -299,6 +270,9 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_ENTER){
             enterPress = false;
+        }
+        if(code == KeyEvent.VK_QUOTE){
+            quotePressed = false;
         }
     }
     public void gameOverState(int code){

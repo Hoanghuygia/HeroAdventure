@@ -31,6 +31,7 @@ public class Entity {
     public boolean collisionOn = false;
     public boolean invincible = false;
     public boolean attacking = false;
+    public boolean flashing = false;
     public boolean alive = true;
     public boolean dying = false;
     boolean hpBarOn = false;
