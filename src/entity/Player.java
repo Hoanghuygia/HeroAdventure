@@ -141,6 +141,10 @@ public class Player extends Entity {
         else if(keyH.backSpacePressed){//guarfing after attack mean that you can guarding when attacking
             guarding = true;
         }
+        else if(keyH.quotePressed){
+            flashing = true;
+            attacking = true;
+        }
         else if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPress) {//why enterPress here?
             if (keyH.upPressed) {
                 direction = "up";
@@ -193,10 +197,16 @@ public class Player extends Entity {
                 attacking = true;
                 spriteCounter = 0;
             }
+            if (keyH.quotePressed) {
+                gp.playSE(7);
+                attacking = true;
+                spriteCounter = 0;
+            }
 
             attackCanceled = false;
             gp.keyH.enterPress = false;
             guarding = false;
+            flashing = false;//nên là shiftPressed = false hay vậy
 
             spriteCounter++;
             if (spriteCounter > 12) {
@@ -214,7 +224,9 @@ public class Player extends Entity {
                 spriteNum = 1;
                 standCounter = 0;
             }
-            guarding = false;//when we dont press any key, then reset the guarding variable
+            guarding = false;
+            flashing = false;
+            //when we dont press any key, then reset the guarding variable
             //why do not reset enterPressed
         }
 
@@ -455,6 +467,11 @@ public class Player extends Entity {
                     if (spriteNum == 1) {image = attackUp1;}
                     if (spriteNum == 2) {image = attackUp2;}
                 }
+                if(flashing){
+                    tempScreenY = screenY - gp.tileSize;
+                    if (spriteNum == 1) {image = attackUp1;}
+                    if (spriteNum == 2) {image = attackUp2;}
+                }
                 if(guarding) image = guardUp;
                 break;
             case "down":
@@ -463,6 +480,11 @@ public class Player extends Entity {
                     if (spriteNum == 2) {image = down2;}
                 }
                 if (attacking) {
+                    if (spriteNum == 1) {image = attackDown1;}
+                    if (spriteNum == 2) {image = attackDown2;}
+                }
+                if(flashing){
+                    tempScreenY = screenY + gp.tileSize;
                     if (spriteNum == 1) {image = attackDown1;}
                     if (spriteNum == 2) {image = attackDown2;}
                 }
@@ -475,9 +497,14 @@ public class Player extends Entity {
                     if (spriteNum == 2) {image = left2;}
                 }
                 if (attacking) {
-              //      tempScreenX = screenX - gp.tileSize;
                     if (spriteNum == 1) {image = attackLeft1;}
                     if (spriteNum == 2) {image = attackLeft2;}
+                }
+                if(flashing){
+                    tempScreenX = screenX - gp.tileSize;
+                    if (spriteNum == 1) {image = attackLeft1;}
+                    if (spriteNum == 2) {image = attackLeft2;}
+
                 }
                 if(guarding) image = guardLeft;
 
@@ -488,6 +515,11 @@ public class Player extends Entity {
                     if (spriteNum == 2) {image = right2;}
                 }
                 if (attacking) {
+                    if (spriteNum == 1) {image = attackRight1;}
+                    if (spriteNum == 2) {image = attackRight2;}
+                }
+                if(flashing){
+                    tempScreenX = screenX + gp.tileSize;
                     if (spriteNum == 1) {image = attackRight1;}
                     if (spriteNum == 2) {image = attackRight2;}
                 }
