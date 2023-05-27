@@ -16,7 +16,7 @@ public class AssetSetter {
     }
 
     public void setObject() {
-        int mapNum = 0;
+        int mapNum = 1;
         int i = 0;
         gp.obj[mapNum][i] = new OBJ_Key(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 25;
@@ -69,14 +69,14 @@ public class AssetSetter {
     }
 
     public void setNPC() {
-        int mapNum = 0;
+        int mapNum = 1;
         gp.npc[mapNum][0] = new NPC_OldMan(gp);
-        gp.npc[mapNum][0].worldX = gp.tileSize * 21;
+        gp.npc[mapNum][0].worldX = gp.tileSize * 27;
         gp.npc[mapNum][0].worldY = gp.tileSize * 21;
     }
 
     public void setMonster() {
-        int mapNum = 0;
+        int mapNum = 1;
         int i = 0;
 
         gp.monster[mapNum][i] = new MON_GreenSlime(gp);
