@@ -61,7 +61,7 @@ public class TileManager {
 
 
         loadMap("/maps/Gamemap0.txt", 0);
-        loadMap("/maps/Gamemap1.txt", 1);
+        loadMap("/maps/mapbig.txt", 1);
     }
 
     public void getTileImage() {

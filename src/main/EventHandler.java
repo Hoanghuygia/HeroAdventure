@@ -55,7 +55,7 @@ public class EventHandler {
             if (hitPit(0,pit1, "right")) {damagePit( pit1, gp.dialogueState);}
             else if (hitPit(0,pit2, "any")) {damagePit( pit2, gp.dialogueState);}
             else if (hit(1,41, 7, "up")) {healingPool( gp.dialogueState);}
-            else if(hit(0, 26, 25, "any")) {teleport(1, 42, 5);}
+            else if(hit(0, 26, 25, "any")) {teleport(1, 52, 17);}
             else if(hit(1, 42, 5, "any")) {teleport(0, 26, 25);}
         }
     }
