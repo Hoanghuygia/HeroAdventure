@@ -1,7 +1,11 @@
 package entity;
 
+import main.Acting;
+import main.Command;
 import main.GamePanel;
 import main.UtilityTool;
+import monster.MON_Orc;
+import monster.Orc;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -208,7 +212,14 @@ public class Entity {
             attacking();
         }
         else{
-            setAction();
+            if(this instanceof MON_Orc){
+                Command acting = new Acting((MON_Orc) this);
+                Orc orc = new Orc();
+                orc.act(acting);
+            }
+            else{
+                setAction();
+            }
             checkCollision();
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE

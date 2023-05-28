@@ -289,5 +289,10 @@ public class AssetSetter {
         gp.monster[mapNum][i].worldX = gp.tileSize * 49;
         gp.monster[mapNum][i].worldY = gp.tileSize * 56;
 
+        i++;
+        gp.monster[mapNum][i] = new MON_Orc(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 48;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 17;
+
     }
 }
