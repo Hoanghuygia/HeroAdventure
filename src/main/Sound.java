@@ -14,6 +14,7 @@ public class Sound {
     FloatControl fc;
     URL soundURL[] = new URL[30];
 
+
     public Sound() {
         soundURL[0] = getClass().getResource("/sound/BlueBoyAdventure.wav");
         soundURL[1] = getClass().getResource("/sound/coin.wav");
@@ -53,7 +54,8 @@ public class Sound {
     }
 
     public void stop() {
-        clip.stop();
+            clip.stop();
+
     }
     public void checkVolume(){
         switch (volumeScale){
