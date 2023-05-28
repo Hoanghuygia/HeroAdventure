@@ -57,10 +57,10 @@ public class EventHandler {
             else if (hit(1,26, 17, "up")) {healingPool( gp.dialogueState);}
             else if(hit(0, 26, 25, "any")) {teleport(1, 52, 17);}
             else if(hit(1, 42, 5, "any")) {teleport(0, 26, 25);}
-            else if(hit(1, 27, 36, "any")) {teleport(1, 51, 16);}
-            else if(hit(1, 51, 16, "any")) {teleport(1, 27, 36);}
-            else if(hit(1, 52, 38, "any")) {teleport(1, 25, 44);}
-            else if(hit(1, 25, 44, "any")) {teleport(1, 52, 38);}
+            else if(hit(1, 27, 36, "any")) {teleport(1, 52, 38);}
+            else if(hit(1, 53, 38, "any")) {teleport(1, 27, 36);}
+            else if(hit(1, 52, 16, "any")) {teleport(1, 25, 44);}
+            else if(hit(1, 25, 44, "any")) {teleport(1, 52, 16);}
 
         }
     }
