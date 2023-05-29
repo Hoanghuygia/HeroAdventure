@@ -46,6 +46,7 @@ public class Player extends Entity {
         getPlayerImage();
         getPlayerAttackImage();
         getGuardImage();
+        setQR();
         setItems();
     }
 
@@ -99,7 +100,11 @@ public class Player extends Entity {
         return defense = dexterity * currentShield.defenseValue;
     }
     public void getBackGround(){
+        mainPlayerImage = setup("/player/player_main", gp.tileSize, gp.tileSize);
         backGround = setup("/player/2D-game", gp.screenWidth, gp.screenHeight);
+    }
+    public void setQR(){
+        QRPicture = setup("/more/QRcode", gp.tileSize, (int)(1.5 * gp.tileSize));
     }
 
     public void getPlayerImage() {
