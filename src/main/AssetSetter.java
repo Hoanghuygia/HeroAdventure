@@ -95,10 +95,14 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = gp.tileSize * 25;
         i++;
 
+        gp.obj[mapNum][i] = new OBJ_Golden_Chest(gp, new OBJ_Heart(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize * 35;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 27;
+        i++;
+
         gp.obj[mapNum][i] = new OBJ_Door(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 14;
         gp.obj[mapNum][i].worldY = gp.tileSize * 39;
-
 
     }
 
@@ -342,7 +346,7 @@ public class AssetSetter {
         i++;
 
         gp.monster[mapNum][i] = new MON_White(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 12;
+        gp.monster[mapNum][i].worldX = gp.tileSize * 16;
         gp.monster[mapNum][i].worldY = gp.tileSize * 24;
         i++;
 
