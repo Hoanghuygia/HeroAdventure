@@ -71,6 +71,7 @@ public class Entity {
     // ITEM ATTRIBUTES
     public int attackValue;
     public int defenseValue;
+    public int damageRatio;
     public String description = "";
     public boolean stackable = false;
     public int amount = 1;
@@ -78,6 +79,7 @@ public class Entity {
     public double bloodAbsorbment;
 
     // TYPE
+
     public int type; // 0 = player, 1 = npc, 2 = monster
     public final int type_player = 0;
     public final int type_npc = 1;
@@ -459,7 +461,7 @@ public class Entity {
             String canGuarDirection = getOppositeDirection(direction);//nó chỉ pass mỗi direction là sao nhỉ
 
             if(gp.player.guarding && gp.player.direction.equals(canGuarDirection)){
-                damage/= 5;
+                damage/= gp.player.currentShield.damageRatio;
                 gp.playSE(12);
 //                if(damage < 0) damage = 0;
 
