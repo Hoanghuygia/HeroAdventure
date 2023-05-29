@@ -69,7 +69,7 @@ public class Player extends Entity {
         nextLevelExp = 5;//I think that we should let it into a HashTable instead a individual variable
         coin = 0;
         invincible = false;
-        currentWeapon = new OBJ_Devil_Sword(gp);
+        currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         attack = getAttack(); // The total attack value is decided by strength and weapon
         defense = getDefense(); // The total defense value is decided by dexterity and shield
