@@ -48,8 +48,8 @@ public class KeyHandler implements KeyListener {
             optionsState(code);
         }
         //GAME OVER STATE
-        else if (gp.gameState == gp.gameOverState) {
-            gameOverState(code);
+        else if (gp.gameState == gp.gameOverAndVictoryState) {
+            gameOverAndVictoryState(code);
         }
     }
 
@@ -285,7 +285,7 @@ public class KeyHandler implements KeyListener {
             quotePressed = false;
         }
     }
-    public void gameOverState(int code){
+    public void gameOverAndVictoryState(int code){
         if (code == KeyEvent.VK_S) {
             gp.ui.commandNum++;
             if (gp.ui.commandNum > 1) {

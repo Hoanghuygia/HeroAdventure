@@ -268,7 +268,7 @@ public class Player extends Entity {
             }
         }
         if(life <= 0){
-            gp.gameState = gp.gameOverState;
+            gp.gameState = gp.gameOverAndVictoryState;
             gp.ui.commandNum = -1;//chỉnh cho nó không bị liền nút
             invincible = false;
             gp.playSE(10);

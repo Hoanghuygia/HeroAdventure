@@ -26,21 +26,9 @@ public class OBJ_Golden_Key extends Entity{
                 OBJ_Golden_Chest goldenChest = (OBJ_Golden_Chest) gp.obj[gp.currentMap][objIndex];
                 if(!goldenChest.opened){
                     goldenChest.opened = true;
-                    gp.playSE(3);
-                    StringBuilder sb = new StringBuilder();
-                    sb.append("You use the " + name + " and open the golden chest");
-
-                    if(!gp.player.canObtainItem(goldenChest.loot)){
-                        sb.append("\n...But you cannot carry anymore!");
-                    }
-                    else{
-                        System.out.println(goldenChest.worldX + ": " + goldenChest.worldY);
-                        System.out.println(gp.obj[gp.currentMap][objIndex].worldX + ": " + gp.obj[gp.currentMap][objIndex].worldY);
-                        sb.append("\nYou obtain the " + goldenChest.loot.name + "!!");
-                        goldenChest.down1 = goldenChest.image2;
-                        goldenChest.collision = false;
-                    }
-                    gp.ui.currentDialogue = sb.toString();
+                    gp.playSE(8);
+                    gp.victoryOrNot = true;
+                    gp.gameState = gp.gameOverAndVictoryState;
                     return true;
                 }
                 else{
