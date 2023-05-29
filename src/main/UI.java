@@ -26,6 +26,8 @@ public class UI {
     public int commandNum = 0;
     public int subState1 = 0;
     public boolean activeGuidance = true;
+    public boolean activeOverscreen = true;
+    public static int Count = 0;
 
     public int titleScreenState = 0; // 0: the first screen, 1: the second screen
     public int slotCol = 0;
@@ -73,6 +75,7 @@ public class UI {
         }
         // PLAY STATE
         if (gp.gameState == gp.playState) {
+            activeOverscreen = false;
             if (activeGuidance == true){
                 drawGuidance();
             }
@@ -104,8 +107,9 @@ public class UI {
         }
         //OPTION OVER
         //OPTION STATE
-        if(gp.gameState == gp.gameOverState){
+        if(gp.gameState == gp.gameOverState ){
             drawGameOverScreen();
+
         }
 
     }
@@ -525,17 +529,17 @@ public class UI {
         x = getXforCenteredText(text);
         g2.drawString(text, x, y);
         if(commandNum == 0){
-            g2.drawString("<", x - 40, y);
+            g2.drawString(">", x - 40, y);
         }
 
         //Back to the main screen
         g2.setFont(g2.getFont().deriveFont(50f));
         text = "Main Screen";
         y += 55;
-        x = getXforCenteredText(text) ;
+        x = getXforCenteredText(text) + 10 ;
         g2.drawString(text, x, y);
         if(commandNum == 1){
-            g2.drawString("<", x - 40, y);
+            g2.drawString(">", x - 40, y);
 
         }
 
@@ -860,22 +864,26 @@ public class UI {
         // SHOW NAME
         textX = frameX + gp.tileSize;
         textY = frameY + 2*gp.tileSize + 15;
-        g2.drawString("Huynh Thi Ngoc Tram - ITCSIU21206",textX-30,textY);
+        g2.drawString("Huynh Thi Ngoc Tram - ITCSIU21238",textX-15,textY);
         textY+= gp.tileSize + 10;
-        g2.drawString("Ma Phung Nghia - ITCSIU21206",textX-30,textY);
+        g2.drawString("Ma Phung Nghia - ITCSIU21206",textX-15,textY);
         textY+= gp.tileSize + 10;
-        g2.drawString("Hoang Gia Huy - ITCSIU21206",textX-30,textY);
+        g2.drawString("Hoang Gia Huy - ITCSIU21186",textX-15,textY);
         textY+= gp.tileSize + 10;
-        g2.drawString("Pham Binh Duong - ITCSIU21206",textX-30,textY);
+        g2.drawString("Pham Binh Duong - ITCSIU21054",textX-15,textY);
 
         // BACK BUTTTON
+        textX = frameX + gp.tileSize ;
+        textY = frameY + gp.tileSize * 9 - 40;
+        g2.drawString("Back", textX, textY);
+        commandNum = 3;
         textX = frameX + gp.tileSize;
         textY = frameY + gp.tileSize * 9 - 40;
         g2.drawString("Back", textX, textY);
         if(commandNum == 3){
             g2.drawString(">", textX - 25, textY);
             if(gp.keyH.enterPress){
-                subState = 4;
+                subState = 0;
             }
         }
     }
