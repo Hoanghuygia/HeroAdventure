@@ -185,8 +185,7 @@ public class UI {
     }
 
     public void drawTitleScreen() {
-        g2.setColor(new Color(0, 0, 0));
-        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.drawImage(gp.player.backGround, 0, 0, gp.screenWidth, gp.screenHeight, null);
 
         // TITLE NAME
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
@@ -575,6 +574,7 @@ public class UI {
         //If the player position differ from the default position, the guide option disappear
         if(gp.player.worldX != gp.player.playerDefaultWorldX || gp.player.worldY != gp.player.playerDefaultWorldY){
             activeGuidance = false;
+            addMessage("Welcome to Mocica's world!!!!");
             gp.gameState = gp.playState;
             commandNum = 0;
         }

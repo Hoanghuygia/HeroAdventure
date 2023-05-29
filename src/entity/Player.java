@@ -42,6 +42,7 @@ public class Player extends Entity {
         motion2_duration = 25;
 
         setDefaultValues();
+        getBackGround();
         getPlayerImage();
         getPlayerAttackImage();
         getGuardImage();
@@ -96,6 +97,9 @@ public class Player extends Entity {
 
     private int getDefense() {
         return defense = dexterity * currentShield.defenseValue;
+    }
+    public void getBackGround(){
+        backGround = setup("/player/2D-game", gp.screenWidth, gp.screenHeight);
     }
 
     public void getPlayerImage() {

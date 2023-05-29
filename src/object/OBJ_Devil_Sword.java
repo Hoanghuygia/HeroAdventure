@@ -14,7 +14,7 @@ public class OBJ_Devil_Sword extends Entity {
         attackValue = 3;
         attackArea.width = 36;
         attackArea.height = 40;
-        description = "[" + name + "]\nAn sword of a forgotten devil.";
+        description = "[" + name + "]\nAn sword of a forgotten \ndevil.";
         knockBackPower = 8;
         bloodAbsorbment = 1;
 
