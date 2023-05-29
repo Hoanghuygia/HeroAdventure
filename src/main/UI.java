@@ -870,7 +870,7 @@ public class UI {
         textY+= gp.tileSize + 10;
         g2.drawString("Hoang Gia Huy - ITCSIU21186",textX-15,textY);
         textY+= gp.tileSize + 10;
-        g2.drawString("Pham Binh Duong - ITCSIU21206",textX-15,textY);
+        g2.drawString("Pham Binh Duong - ITCSIU21054",textX-15,textY);
 
         // BACK BUTTTON
         textX = frameX + gp.tileSize ;
