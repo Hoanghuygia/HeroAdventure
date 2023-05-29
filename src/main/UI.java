@@ -566,10 +566,10 @@ public class UI {
         int textX;
         int textY;
         String text = "GAME GUIDANCE";
-        textX = getXforCenteredText(text) - 15;
+        textX = getXforCenteredText(text);
         textY = frameY + gp.tileSize;
         g2.drawString(text,textX,textY);
-        Line2D line =new Line2D.Float(frameX+gp.tileSize+135, textY+30,frameX+gp.tileSize+135,(gp.tileSize+10)*6+40);
+        Line2D line = new Line2D.Float(frameX+gp.tileSize+135, textY+30,frameX+gp.tileSize+135,(gp.tileSize+10) * 6 + gp.tileSize * 2);
         g2.draw(line);
 
         // MOVEMENT CONTROL
@@ -577,18 +577,26 @@ public class UI {
         textY = frameY + 2*gp.tileSize + 15;
         g2.drawString("W",textX-10 , textY);
         g2.drawString("Go ahead",textX+200, textY);
-        textY+= gp.tileSize + 10;
+        textY+= gp.tileSize;
         g2.drawString("S",textX-10 , textY);
         g2.drawString("Go down",textX+200, textY);
-        textY+= gp.tileSize + 10;
+        textY+= gp.tileSize;
         g2.drawString("A",textX-10 , textY);
         g2.drawString("Move left",textX+200, textY);
-        textY+= gp.tileSize + 10;
+        textY+= gp.tileSize;
         g2.drawString("D",textX-10 , textY);
         g2.drawString("Move right",textX+200, textY);
-        textY+= gp.tileSize + 10;
+        textY+= gp.tileSize;
         g2.drawString("Enter",textX-10 , textY);
         g2.drawString("Attack",textX+200, textY);
+
+        textY+= gp.tileSize;
+        g2.drawString("Quote",textX-10 , textY);
+        g2.drawString("Flashing",textX+200, textY);
+
+        textY+= gp.tileSize;
+        g2.drawString("Backspace",textX-10 , textY);
+        g2.drawString("Shield",textX+200, textY);
 
         //If the player position differ from the default position, the guide option disappear
         if(gp.player.worldX != gp.player.playerDefaultWorldX || gp.player.worldY != gp.player.playerDefaultWorldY){
