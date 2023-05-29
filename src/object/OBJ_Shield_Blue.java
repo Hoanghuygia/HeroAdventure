@@ -12,6 +12,7 @@ public class OBJ_Shield_Blue extends Entity {
         name = "Wood Shield";
         down1 = setup("/objects/shield_blue", gp.tileSize, gp.tileSize);
         defenseValue = 2;
+        damageRatio = 5;
         description = "[" + name + "]\nA shiny ble shield.";
     }
 }

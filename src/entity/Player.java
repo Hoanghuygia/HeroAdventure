@@ -44,7 +44,7 @@ public class Player extends Entity {
         setDefaultValues();
         getPlayerImage();
         getPlayerAttackImage();
-      //  getGuardImage();
+        getGuardImage();
         setItems();
     }
 
@@ -69,7 +69,7 @@ public class Player extends Entity {
         nextLevelExp = 5;//I think that we should let it into a HashTable instead a individual variable
         coin = 0;
         invincible = false;
-        currentWeapon = new OBJ_Sword_Normal(gp);
+        currentWeapon = new OBJ_Devil_Sword(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         attack = getAttack(); // The total attack value is decided by strength and weapon
         defense = getDefense(); // The total defense value is decided by dexterity and shield
@@ -82,6 +82,9 @@ public class Player extends Entity {
         inventory.add(new OBJ_Golden_Key(gp));
         inventory.add(new OBJ_Metal_Key(gp));
         inventory.add(new OBJ_Wooded_Key(gp));
+        inventory.add(new OBJ_Shield_Blue(gp));
+//        inventory.add(new OBJ_Axe(gp));
+        inventory.add(new OBJ_Sword_Normal(gp));
     }
 
     private int getAttack() {
@@ -108,14 +111,27 @@ public class Player extends Entity {
 
     public void getPlayerAttackImage() {
         if (currentWeapon.type == type_sword) {
-            attackUp1 = setup("/player/attack_up1",(int)(gp.tileSize * 1.25), (int)(gp.tileSize * 1.25));
-            attackUp2 = setup("/player/attack_up2", (int)(gp.tileSize * 1.25), (int)(gp.tileSize * 1.25));
-            attackDown1 = setup("/player/attack_down1", (int)(gp.tileSize * 1.25), (int)(gp.tileSize * 1.25));
-            attackDown2 = setup("/player/attack_down2", (int)(gp.tileSize * 1.25), (int)(gp.tileSize * 1.25));
-            attackLeft1 = setup("/player/attack_left1", (int)(gp.tileSize * 1.15), (int)(gp.tileSize * 1.15));
-            attackLeft2 = setup("/player/attack_left2", (int)(gp.tileSize * 1.15), (int)(gp.tileSize * 1.15));
-            attackRight1 = setup("/player/attack_right1", (int)(gp.tileSize * 1.15), (int)(gp.tileSize * 1.15));
-            attackRight2 = setup("/player/attack_right2", (int)(gp.tileSize * 1.15), (int)(gp.tileSize * 1.15));
+            if(currentWeapon instanceof OBJ_Sword_Normal){
+                attackUp1 = setup("/player/Normalsw_attackup1",(int)(gp.tileSize * 1.25), (int)(gp.tileSize * 1.25));
+                attackUp2 = setup("/player/Normalsw_attackup2", (int)(gp.tileSize * 1.25), (int)(gp.tileSize * 1.25));
+                attackDown1 = setup("/player/Normalsw_attackdown1", (int)(gp.tileSize * 1.25), (int)(gp.tileSize * 1.25));
+                attackDown2 = setup("/player/Normalsw_attackdown2", (int)(gp.tileSize * 1.25), (int)(gp.tileSize * 1.25));
+                attackLeft1 = setup("/player/Normalsw_attackleft1", (int)(gp.tileSize * 1.15), (int)(gp.tileSize * 1.15));
+                attackLeft2 = setup("/player/Normalsw_attackleft2", (int)(gp.tileSize * 1.15), (int)(gp.tileSize * 1.15));
+                attackRight1 = setup("/player/Normalsw_attackright1", (int)(gp.tileSize * 1.15), (int)(gp.tileSize * 1.15));
+                attackRight2 = setup("/player/Normalsw_attackright2", (int)(gp.tileSize * 1.15), (int)(gp.tileSize * 1.15));
+            }
+            if(currentWeapon instanceof OBJ_Devil_Sword){
+                attackUp1 = setup("/player/attack_up1",(int)(gp.tileSize * 1.25), (int)(gp.tileSize * 1.25));
+                attackUp2 = setup("/player/attack_up2", (int)(gp.tileSize * 1.25), (int)(gp.tileSize * 1.25));
+                attackDown1 = setup("/player/attack_down1", (int)(gp.tileSize * 1.25), (int)(gp.tileSize * 1.25));
+                attackDown2 = setup("/player/attack_down2", (int)(gp.tileSize * 1.25), (int)(gp.tileSize * 1.25));
+                attackLeft1 = setup("/player/attack_left1", (int)(gp.tileSize * 1.15), (int)(gp.tileSize * 1.15));
+                attackLeft2 = setup("/player/attack_left2", (int)(gp.tileSize * 1.15), (int)(gp.tileSize * 1.15));
+                attackRight1 = setup("/player/attack_right1", (int)(gp.tileSize * 1.15), (int)(gp.tileSize * 1.15));
+                attackRight2 = setup("/player/attack_right2", (int)(gp.tileSize * 1.15), (int)(gp.tileSize * 1.15));
+            }
+
         }
 //        if (currentWeapon.type == type_axe) {
 //            attackUp1 = setup("/player/boy_axe_up_1", gp.tileSize, gp.tileSize * 2);
@@ -128,12 +144,20 @@ public class Player extends Entity {
 //            attackRight2 = setup("/player/boy_axe_right_2", gp.tileSize * 2, gp.tileSize);
 //        }
     }
-//    public void getGuardImage(){
-//        guardUp = setup("/player/boy_guard_up", gp.tileSize, gp.tileSize);
-//        guardDown = setup("/player/boy_guard_down", gp.tileSize, gp.tileSize);
-//        guardLeft= setup("/player/boy_guard_left", gp.tileSize, gp.tileSize);
-//        guardRight = setup("/player/boy_guard_right", gp.tileSize, gp.tileSize);
-//    }
+    public void getGuardImage(){
+        if(currentShield instanceof OBJ_Shield_Wood){
+            guardUp = setup("/player/brown_guardup", gp.tileSize, gp.tileSize);
+            guardDown = setup("/player/brown_guarddown", gp.tileSize, gp.tileSize);
+            guardLeft= setup("/player/brown_guardleft", gp.tileSize, gp.tileSize);
+            guardRight = setup("/player/brown_guardright", gp.tileSize, gp.tileSize);
+        }
+        if(currentShield instanceof OBJ_Shield_Blue){
+            guardUp = setup("/player/blue_guardup", gp.tileSize, gp.tileSize);
+            guardDown = setup("/player/blue_guardown", gp.tileSize, gp.tileSize);
+            guardLeft= setup("/player/blue_guardleft", gp.tileSize, gp.tileSize);
+            guardRight = setup("/player/blue_guardright", gp.tileSize, gp.tileSize);
+        }
+    }
 
     public void update() {
         if (attacking) {
@@ -399,6 +423,7 @@ public class Player extends Entity {
             if (selectedItem.type == type_shield) {
                 currentShield = selectedItem;
                 defense = getDefense();
+                getGuardImage();
             }
             if (selectedItem.type == type_consumable) {
                 if(selectedItem.use(this)){
