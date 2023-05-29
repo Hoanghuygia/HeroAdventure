@@ -202,7 +202,7 @@ public class UI {
         // BLUE BOY IMAGE
         x = gp.screenWidth / 2 - (gp.tileSize * 2) / 2;
         y += gp.tileSize * 2;
-        g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+        g2.drawImage(gp.player.mainPlayerImage, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
 
         // MENU
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
@@ -498,7 +498,11 @@ public class UI {
                 options_Source(frameX,frameY);
                 break;
             case 5:
-                ShowName(frameX , frameY);
+                option_showName(frameX , frameY);
+                break;
+            case 7:
+                option_showQR(frameX, frameY);
+                break;
         }
         gp.keyH.enterPress = false;
     }
@@ -831,18 +835,16 @@ public class UI {
 
         // NAME
 
-        g2.drawString("Member name", textX, textY);
+        g2.drawString("Member information", textX, textY);
         if (commandNum == 0) {
             g2.drawString(">", textX - 25, textY);
             if (gp.keyH.enterPress) {
                 subState = 5;
-
             }
         }
-
-
         textY += gp.tileSize;
-        g2.drawString("Source code", textX, textY);
+
+        g2.drawString("Source", textX, textY);
         if (commandNum == 1) {
             g2.drawString(">", textX - 25, textY);
 
@@ -852,6 +854,7 @@ public class UI {
         g2.drawString("Enjoy us", textX, textY);
         if (commandNum == 2) {
             g2.drawString(">", textX - 25, textY);
+            if(gp.keyH.enterPress) subState = 7;
 
         }
 
@@ -868,7 +871,7 @@ public class UI {
 
     }
 
-    public void ShowName(int frameX , int frameY){
+    public void option_showName(int frameX , int frameY){
         int textX;
         int textY;
         String text = "NAME";
@@ -902,4 +905,32 @@ public class UI {
             }
         }
     }
+    public void option_showQR(int frameX, int frameY){
+        int textX;
+        int textY;
+        String text = "Enjoy us here!!";
+
+        textX = getXforCenteredText(text) + 40;
+        textY = frameY + gp.tileSize;
+        g2.drawString(text, textX , textY);
+
+        int QRx = textX;
+        int QRy = textY;
+        QRy += (1 * gp.tileSize);
+
+        g2.drawImage(gp.player.QRPicture, QRx, QRy, gp.tileSize * 4, gp.tileSize * 6, null);
+
+        commandNum = 0;
+        textX = frameX + gp.tileSize;
+        textY = frameY + gp.tileSize * 9 - 20;
+        g2.drawString("Back", textX, textY);
+        if(commandNum == 0){
+            g2.drawString(">", textX - 25, textY);
+            if(gp.keyH.enterPress){
+                subState = 0;
+            }
+        }
+
+    }
+
 }
