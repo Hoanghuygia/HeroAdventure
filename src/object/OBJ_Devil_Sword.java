@@ -10,7 +10,7 @@ public class OBJ_Devil_Sword extends Entity {
 
         type = type_sword;
         name = "Devil Sword";
-        down1 = setup("/objects/sword_normal", gp.tileSize, gp.tileSize);
+        down1 = setup("/objects/sword_devil", gp.tileSize, gp.tileSize);
         attackValue = 3;
         attackArea.width = 36;
         attackArea.height = 40;

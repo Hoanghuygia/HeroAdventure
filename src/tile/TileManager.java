@@ -25,7 +25,7 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
 
-        InputStream is = getClass().getResourceAsStream("/maps/Tiledata.txt");
+        InputStream is = getClass().getResourceAsStream("/maps/Tiledata2.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
         String line;
@@ -62,6 +62,8 @@ public class TileManager {
 
         loadMap("/maps/Gamemap0.txt", 0);
         loadMap("/maps/mapbig.txt", 1);
+        loadMap("/maps/mapbig2.txt", 2);
+
     }
 
     public void getTileImage() {
