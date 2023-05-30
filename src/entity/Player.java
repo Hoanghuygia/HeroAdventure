@@ -101,7 +101,7 @@ public class Player extends Entity {
     }
     public void getBackGround(){
         mainPlayerImage = setup("/player/player_main", gp.tileSize, gp.tileSize);
-        backGround = setup("/player/2D-game", gp.screenWidth, gp.screenHeight);
+        backGround = setup("/more/background", gp.screenWidth, gp.screenHeight);
     }
     public void setQR(){
         QRPicture = setup("/more/QRcode", gp.tileSize, (int)(1.5 * gp.tileSize));

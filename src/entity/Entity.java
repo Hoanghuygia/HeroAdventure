@@ -534,7 +534,7 @@ public class Entity {
         target.speed += knockBackPower;
         target.knockBack = true;
     }
-    public void bloodAbsorb(Entity attacker, int hpAborbed){//hiệu ứng hút máu
+    public void bloodAbsorb(Entity attacker, int hpAborbed){
         if(attacker.life < attacker.maxLife){
             attacker.life += hpAborbed;
             if(attacker.life > attacker.maxLife){

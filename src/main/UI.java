@@ -193,10 +193,10 @@ public class UI {
         int y = gp.tileSize * 3;
 
         // SHADOW
-        g2.setColor(Color.gray);
+        g2.setColor(Color.white);
         g2.drawString(text, x + 5, y + 5);
         // MAIN COLOR
-        g2.setColor(Color.white);
+        g2.setColor(new Color(78,53,36));
         g2.drawString(text, x, y);
 
         // BLUE BOY IMAGE
