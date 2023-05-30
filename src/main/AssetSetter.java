@@ -18,6 +18,12 @@ public class AssetSetter {
     public void setObject() {
         int mapNum = 1;
         int i = 0;
+
+        gp.obj[mapNum][i] = new OBJ_Potion_Red(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 52;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 17;
+        i++;
+
         gp.obj[mapNum][i] = new OBJ_Metal_Chest(gp, new OBJ_Devil_Sword (gp));
         gp.obj[mapNum][i].worldX = gp.tileSize * 12;
         gp.obj[mapNum][i].worldY = gp.tileSize * 27;

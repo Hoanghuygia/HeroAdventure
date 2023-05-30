@@ -503,6 +503,9 @@ public class UI {
             case 7:
                 option_showQR(frameX, frameY);
                 break;
+            case 8:
+                option_ShowSource(frameX, frameY);
+                break;
         }
         gp.keyH.enterPress = false;
     }
@@ -855,7 +858,9 @@ public class UI {
         g2.drawString("Source", textX, textY);
         if (commandNum == 1) {
             g2.drawString(">", textX - 25, textY);
-
+            if (gp.keyH.enterPress) {
+                subState = 8;
+            }
         }
 
         textY += gp.tileSize;
@@ -940,5 +945,40 @@ public class UI {
         }
 
     }
+    public void option_ShowSource(int frameX , int frameY) {
+        int textX, textY;
+        String text1 = "THANKS !";
+        textX = getXforCenteredText(text1) + 40;
+        textY = frameY + gp.tileSize;
+        g2.drawString(text1, textX, textY);
 
+        String text2 = "https://docs.google.com/document\n/d/1wwfB_c8VJqe478Ko8Sb_JgH\niTk5y0oxBy1J2nfUzC5I/edit";
+        textX = frameX + gp.tileSize - 12;
+        textY = frameY + 2 * gp.tileSize + 15;
+        for (String line : text2.split("\n")) {
+            g2.drawString(line, textX, textY);
+            textY += 35;
+        }
+
+        String text3 = "https://tinyurl.com/33vth5y2";
+        textX = frameX + gp.tileSize -12;
+        textY = frameY + 2 * gp.tileSize + 160;
+        for (String line : text3.split("\n")){
+            g2.drawString(line, textX, textY);
+            textY += 35;
+        }
+
+        // BACK BUTTON
+        textX = frameX + gp.tileSize;
+        textY = frameY + gp.tileSize * 9 - 40;
+        g2.drawString("Back", textX, textY);
+        commandNum = 2;
+        if (commandNum == 2) {
+            g2.drawString(">", textX - 25, textY);
+            if (gp.keyH.enterPress) {
+                subState = 4;
+
+            }
+        }
+    }
 }
