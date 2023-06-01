@@ -1,6 +1,8 @@
 package main;
 
+import entity.Monster;
 import entity.NPC_OldMan;
+import entity.Object;
 import monster.MON_Bee;
 import monster.MON_Orc;
 import monster.MON_White;

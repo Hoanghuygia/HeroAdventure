@@ -1,9 +1,10 @@
 package object;
 
 import entity.Entity;
+import entity.Object;
 import main.GamePanel;
 
-public class OBJ_Sword_Normal extends Entity {
+public class OBJ_Sword_Normal extends Object {
 
     public OBJ_Sword_Normal(GamePanel gp) {
         super(gp);

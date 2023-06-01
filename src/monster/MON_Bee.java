@@ -1,9 +1,10 @@
 package monster;
 
 import entity.Entity;
+import entity.Monster;
 import main.GamePanel;
 
-public class MON_Bee extends Entity {
+public class MON_Bee extends Monster {
 
     GamePanel gp;
     int countTime = 0;
@@ -15,6 +16,8 @@ public class MON_Bee extends Entity {
 
         type = type_monster;
         name = "Bee Mon";
+        coinValue = 500;
+        ratioOfItem = 95;
         defaultSpeed = 1;
         speed = defaultSpeed;
         maxLife = 4;

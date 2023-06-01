@@ -1,9 +1,8 @@
 package main;
 
 import ai.PathFinder;
-import entity.Entity;
-import entity.NPC_OldMan;
-import entity.Player;
+import entity.*;
+import entity.Object;
 import tile.TileManager;
 
 import javax.swing.*;
@@ -57,9 +56,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
-    public Entity obj[][] = new Entity[maxMap][20];
+    public Entity obj[][] = new Entity[maxMap][71];
     public Entity npc[][] = new Entity[maxMap][20];
-    public Entity monster[][] = new Entity[maxMap][50];
+    public int monsterNumber = 50;
+    public Monster monster[][] = new Monster[maxMap][monsterNumber];
+    public Object lootItem[][] = new Object[maxMap][monsterNumber];
     ArrayList<Entity> entityList = new ArrayList<>();
 
     // GAME STATE
@@ -166,10 +167,14 @@ public class GamePanel extends JPanel implements Runnable {
             // MONSTER
             for (int i = 0; i < monster[1].length; i++) {
                 if (monster[currentMap][i] != null) {
-                    if (monster[currentMap][i].alive && !monster[currentMap][i].dying) {//biến dying = đang chết
+                    if (monster[currentMap][i].alive && !monster[currentMap][i].dying) {
                         monster[currentMap][i].update();
                     }
-                    if (!monster[currentMap][i].alive && !monster[currentMap][i].dying) {//I think the bug is here
+                    if (!monster[currentMap][i].alive && !monster[currentMap][i].dying) {
+                        Object item = monster[currentMap][i].getRandomItem();
+                        obj[currentMap][i + 20] = item;
+                        obj[currentMap][i + 20].worldX = monster[currentMap][i].worldX;
+                        obj[currentMap][i + 20].worldY = monster[currentMap][i].worldY;
                         monster[currentMap][i] = null;
                     }
                 }
@@ -205,7 +210,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             for (int i = 0; i < obj[1].length; i++) {
-                if (obj[currentMap][i] != null) {//mình cho nó thực hiện hiệu ứng ở đây và chết
+                if (obj[currentMap][i] != null) {
                     entityList.add(obj[currentMap][i]);
                 }
             }
@@ -214,9 +219,6 @@ public class GamePanel extends JPanel implements Runnable {
                     entityList.add(monster[currentMap][i]);
                 }
             }
-
-
-
             // SORT
             Collections.sort(entityList, new Comparator<Entity>() {
                 @Override

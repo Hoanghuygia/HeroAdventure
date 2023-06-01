@@ -1,9 +1,10 @@
 package object;
 
 import entity.Entity;
+import entity.Object;
 import main.GamePanel;
 
-public class OBJ_Wooded_Key extends Entity{
+public class OBJ_Wooded_Key extends Object {
     GamePanel gp;
 
     public OBJ_Wooded_Key(GamePanel gp) {

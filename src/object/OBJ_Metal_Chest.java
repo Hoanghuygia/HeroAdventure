@@ -1,9 +1,10 @@
 package object;
 
 import entity.Entity;
+import entity.Object;
 import main.GamePanel;
 
-public class OBJ_Metal_Chest extends Entity {
+public class OBJ_Metal_Chest extends Object {
     GamePanel gp;
     Entity loot;
     boolean opened = false;

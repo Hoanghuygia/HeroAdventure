@@ -71,7 +71,7 @@ public class Player extends Entity {
         nextLevelExp = 5;//I think that we should let it into a HashTable instead a individual variable
         coin = 0;
         invincible = false;
-        currentWeapon = new OBJ_Sword_Normal(gp);
+        currentWeapon = new OBJ_Devil_Sword(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         attack = getAttack(); // The total attack value is decided by strength and weapon
         defense = getDefense(); // The total defense value is decided by dexterity and shield
@@ -277,18 +277,18 @@ public class Player extends Entity {
         }
     }
 
-    public void pickUpObject(int i) {//Still cant open the doors or chests
+    public void pickUpObject(int i) {
         if (i != 999) {
             //PICK ONLY ITEMS
-            if(gp.obj[gp.currentMap][i].type == type_pinkUpOnly){
-                gp.obj[gp.currentMap][i].use(this);
-                gp.obj[gp.currentMap][i] = null;
-            }
+                if(gp.obj[gp.currentMap][i].type == type_pinkUpOnly){
+                    gp.playSE(1);
+//                    gp.obj[gp.currentMap][i].use(this);
+                    gp.obj[gp.currentMap][i] = null;
+                }
             //OBSTACLE
             else if(gp.obj[gp.currentMap][i].type == type_obstacle){
                 if(keyH.enterPress){
                     attackCanceled = true;
-                    System.out.println(gp.obj[gp.currentMap][i].name);
                     gp.obj[gp.currentMap][i].interact();
                 }
             }
@@ -299,7 +299,8 @@ public class Player extends Entity {
                 if (canObtainItem(gp.obj[gp.currentMap][i])) {
                     gp.playSE(1);
                     text = "Got a " + gp.obj[gp.currentMap][i].name + "!";
-                } else {
+                }
+                else {
                     text = "You cannot carry any more!";
                 }
 
