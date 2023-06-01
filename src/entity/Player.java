@@ -282,7 +282,7 @@ public class Player extends Entity {
             //PICK ONLY ITEMS
                 if(gp.obj[gp.currentMap][i].type == type_pinkUpOnly){
                     gp.playSE(1);
-//                    gp.obj[gp.currentMap][i].use(this);
+                    gp.obj[gp.currentMap][i].use(this);
                     gp.obj[gp.currentMap][i] = null;
                 }
             //OBSTACLE

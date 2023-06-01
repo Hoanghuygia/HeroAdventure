@@ -19,7 +19,7 @@ public class Monster extends Entity{
             object = new OBJ_Potion_Red(gp);
         }
         else{
-            gp.player.coin += coinValue;
+//            gp.player.coin += coinValue;
             object = new OBJ_Coin(gp);
         }
         return object;
